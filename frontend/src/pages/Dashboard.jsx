@@ -1,10 +1,18 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import Dashboardbanner from '../components/Dashboardbanner'
+import DashboardCard from '../components/DashboardCard'
 
 const Dashboard = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      </div>
+  
+  
+      <Dashboardbanner />
+      <DashboardCard />
+
+    </div>
+    
   )
 }
 
