@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import Add from './pages/Add';
+import View from './pages/View';
 import { Routes, Route } from "react-router-dom";
 import Dashboard from './pages/Dashboard'
 import Navbar from './components/Navbar'
@@ -27,6 +29,8 @@ function App() {
        <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
        <Route path='/Activecomplaint' element={<Activecomplaint/>}/>
        <Route path='/raisecomplaint' element={<Raisecomplaint/>}/>
+       <Route path='/add' element={<Add />} />
+        <Route path='/view' element={<View />} />
       
 
     </Routes>
