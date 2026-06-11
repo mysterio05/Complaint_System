@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const Add = () => {
+
+const Add = ({ complaints, setComplaints }) => {
   const navigate = useNavigate()
 
   const [form, setForm] = useState({
@@ -11,16 +12,18 @@ const Add = () => {
     location: ''
   })
 
-  
   const valueUpdate = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  
   const submitInfo = (e) => {
     e.preventDefault()
+    
+  
+    setComplaints([...complaints, form])
+    
     console.log("Form submitted:", form)
-    alert("Complaint logged locally!")
+    alert("Complaint logged successfully!")
     navigate('/view')
   }
 

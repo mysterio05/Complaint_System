@@ -9,11 +9,11 @@ const Dashboardbanner = () => {
 
    }
 
-  //  const user={
-  //   name:"Pinto",
-  //   role:'Student'
+   //const user={
+   //  name:"Pinto",
+    //role:'Student'
     
-  //  }
+   // }
 
 
   return (
