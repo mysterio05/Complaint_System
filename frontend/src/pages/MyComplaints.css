@@ -1,0 +1,20 @@
+.complaints-table {
+  width: 80%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+/* table-hover */
+.complaints-table tbody tr:hover {
+  background-color: #f4f4f4;
+}
+
+.complaints-table thead th {
+  background-color: #0c43c6;
+  color: white;
+  text-align: center;
+}
+
+a {
+  color: #0c43c6 !important
+}
