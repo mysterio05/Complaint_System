@@ -3,17 +3,17 @@ import './dashboardbanner.css';
 import { Link } from 'react-router-dom';
 const Dashboardbanner = () => {
 
-  const user={
-    name:"Gokul",
-    role:'Admin'
+  // const user={
+  //   name:"Gokul",
+  //   role:'Admin'
 
-   }
+  //  }
 
-   //const user={
-   //  name:"Pinto",
-    //role:'Student'
+   const user={
+    name:"Pinto",
+    role:'Student'
     
-   // }
+   }
 
 
   return (
@@ -23,7 +23,7 @@ const Dashboardbanner = () => {
        {user && user.role === "Student" && (
         <>
       <div className="banner-left">
-        <h2>Welcome Back, Pinto 👋</h2>
+        <h2>Welcome Back, {user.name} 👋</h2>
 
         <p>
           Track your complaints and their current status here.
@@ -43,7 +43,7 @@ const Dashboardbanner = () => {
        {user && user.role === "Admin" && (
         <>
       <div className="banner-left">
-        <h2>Welcome Back, GoKul 👋</h2>
+        <h2>Welcome Back, {user.name} 👋</h2>
 
         <p>
           Track your complaints and their current status here.

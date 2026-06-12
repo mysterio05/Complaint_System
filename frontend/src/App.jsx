@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import './App.css'
 import { Routes, Route } from "react-router-dom";
+import MyComplaints from './pages/mycomplaints'
+import ComplaintDetails from './pages/complaintdetails'
 import Navbar from './components/Navbar'
 import Add from './pages/Add';
 import View from './pages/View';
 import Update from './pages/Update';
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
-import Mycomplaints from './pages/Mycomplaints'
 import AdminDashboard from './pages/AdminDashboard'
 import Dashboardbanner from "./components/Dashboardbanner";
 import Activecomplaint from './pages/Activecomplaint'
@@ -21,18 +22,26 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      <Routes>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/dashboard' element={<Dashboard/>}/>
-        <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
-        <Route path='/Activecomplaint' element={<Activecomplaint/>}/>
+     
+    <Navbar />
+    <Routes>
+      <Route path='/mycomplaints' element={<MyComplaints/>}/>
+      <Route path='/complaintdetails' element={<ComplaintDetails/>}/>
         <Route path='/mycomplaint' element={<View complaints={complaints} setComplaints={setComplaints} />}/>
-        <Route path='/raisecomplaint' element={<Add complaints={complaints} setComplaints={setComplaints} />}/>
-        <Route path='/add' element={<Add complaints={complaints} setComplaints={setComplaints} />} />
+       <Route path='/' element={<Login/>}/>
+      <Route path='/login' element={<Login/>}/>
+      <Route path='/dashboard' element={<Dashboard/>}/>
+       <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
+       <Route path='/Activecomplaint' element={<Activecomplaint/>}/>
+       <Route path='/raisecomplaint' element={<Raisecomplaint/>}/>
+          <Route path='/add' element={<Add complaints={complaints} setComplaints={setComplaints} />} />
         <Route path='/view' element={<View complaints={complaints} setComplaints={setComplaints} />} />
         <Route path='/update/:id' element={<Update complaints={complaints} setComplaints={setComplaints} />} />
-      </Routes>
+      
+
+    </Routes>
+      
+    
     </>
   )
 }
