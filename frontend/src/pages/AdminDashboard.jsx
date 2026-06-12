@@ -1,11 +1,9 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import Dashboardbanner from '../components/Dashboardbanner'
 import DashboardCard from '../components/DashboardCard'
 import ComplaintChart from '../components/ComplaintChart'
-
-const Dashboard = () => {
-  const data = [
+const AdminDashboard = () => {
+    const data = [
       { category: "Classroom", complaints: 10 },
       { category: "Laboratory", complaints: 8 },
       { category: "Hostel", complaints: 6 },
@@ -18,14 +16,11 @@ const Dashboard = () => {
     ];
   return (
     <div>
-  
-  
       <Dashboardbanner />
       <DashboardCard />
-      <ComplaintChart complaint={data}/>
-    </div>
-    
+       <ComplaintChart complaint={data}/>
+      </div>
   )
 }
 
-export default Dashboard
+export default AdminDashboard

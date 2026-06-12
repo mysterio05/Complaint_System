@@ -1,0 +1,38 @@
+.status-box {
+  background-color: #0c43c6;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+a {
+  color: #04339D;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #0A45C0;
+}
+
+.icon-circle {
+  width: 86px;
+  height: 86px;
+  background-color: #E8F5E9;
+  /* Bootstrap equivalents */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.complaint-icon {
+  font-size: 49px;
+}
+
+.detail {
+    color: #04339D;
+}
