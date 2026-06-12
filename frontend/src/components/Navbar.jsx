@@ -6,17 +6,17 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link } from 'react-router-dom';
 const Navbar = () => {
    
-  const user={
-    name:"Gokul",
-    role:'Admin'
+  // const user={
+  //    name:"Gokul",
+  //    role:'Admin'
 
-   }
-
-  //  const user={
-  //   name:"Pinto",
-  //   role:'Student'
-    
   //  }
+
+   const user={
+    name:"Pinto",
+    role:'Student'
+    
+   }
 
 
   return (
