@@ -1,6 +1,6 @@
+import React from 'react'
 import { useState } from 'react'
 import './App.css'
-import { Routes, Route } from "react-router-dom";
 import MyComplaints from './pages/mycomplaints'
 import ComplaintDetails from './pages/complaintdetails'
 import Navbar from './components/Navbar'
@@ -8,11 +8,13 @@ import Add from './pages/Add';
 import View from './pages/View';
 import Update from './pages/Update';
 import Dashboard from './pages/Dashboard'
-import Login from './pages/Login'
 import AdminDashboard from './pages/AdminDashboard'
 import Dashboardbanner from "./components/Dashboardbanner";
 import Activecomplaint from './pages/Activecomplaint'
 import Raisecomplaint from './pages/Raisecomplaint'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import Login from './components/Login'
+import Register from './components/Register'
 
 function App() {
   const [complaints, setComplaints] = useState([
@@ -37,6 +39,9 @@ function App() {
           <Route path='/add' element={<Add complaints={complaints} setComplaints={setComplaints} />} />
         <Route path='/view' element={<View complaints={complaints} setComplaints={setComplaints} />} />
         <Route path='/update/:id' element={<Update complaints={complaints} setComplaints={setComplaints} />} />
+      <Route path='/' element={<Navigate to="/login"/>}/>
+        <Route path='/login' element={<Login/>}/>
+        <Route path='/register' element={<Register/>}/>
       
 
     </Routes>
