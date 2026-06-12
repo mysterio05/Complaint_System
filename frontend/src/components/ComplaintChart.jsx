@@ -9,18 +9,8 @@ import {
   Tooltip
 } from "recharts";
 
-const ComplaintChart = () => {
-  const data = [
-    { category: "Classroom", complaints: 10 },
-    { category: "Laboratory", complaints: 8 },
-    { category: "Hostel", complaints: 6 },
-    { category: "Library", complaints: 4 },
-    { category: "Wi-Fi", complaints: 12 },
-    { category: "Electrical", complaints: 5 },
-    { category: "Water", complaints: 3 },
-    { category: "Clean", complaints: 7 },
-    { category: "Other", complaints: 2 }
-  ];
+const ComplaintChart = ({complaint}) => {
+  
 
   return (
     <div className="card shadow-sm mt-4">
@@ -28,7 +18,7 @@ const ComplaintChart = () => {
         <h6 className="fw-bold mb-3">Category-wise Complaints</h6>
 
         <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={data}>
+          <BarChart data={complaint}>
             <CartesianGrid strokeDasharray="3 3" />
 
             <XAxis
