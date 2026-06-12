@@ -1,19 +1,21 @@
 import React from 'react'
 import './dashboardbanner.css';
 import { Link } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const Dashboardbanner = () => {
 
-  // const user={
-  //   name:"Gokul",
-  //   role:'Admin'
+  const user={
+    name:"Gokul",
+    role:'Admin'
 
-  //  }
-
-   const user={
-    name:"Pinto",
-    role:'Student'
-    
    }
+
+  //  const user={
+  //   name:"Pinto",
+  //   role:'Student'
+    
+  //  }
 
 
   return (
@@ -43,7 +45,7 @@ const Dashboardbanner = () => {
        {user && user.role === "Admin" && (
         <>
       <div className="banner-left">
-        <h2>Welcome Back, {user.name} 👋</h2>
+        <h2>Welcome Back Admin, {user.name} 👋</h2>
 
         <p>
           Track your complaints and their current status here.
