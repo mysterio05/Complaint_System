@@ -1,0 +1,28 @@
+.navbar{background: linear-gradient(
+  90deg,
+  #0d3ca8 0%,
+  #1145b8 50%,
+  #0b3a9a 100%
+);}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link {
+  color: white !important;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #dbeafe !important;
+}
+
+.navbar-nav .nav-link {
+  gap: 4px;
+  text-align: center;
+}
+
+.navbar-nav .nav-link i {
+  transition: transform 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover i {
+  transform: scale(1.2);
+}
