@@ -5,6 +5,8 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from './pages/Dashboard'
+import MyComplaints from './pages/mycomplaints'
+import ComplaintDetails from './pages/ComplaintDetails'
 
 
 function App() {
@@ -13,7 +15,8 @@ function App() {
   return (
     <>
     <Routes>
-      <Route path='/' element={<Dashboard/>}/>
+      <Route path='/mycomplaints' element={<MyComplaints/>}/>
+      <Route path='/complaintdetails' element={<ComplaintDetails/>}/>
     </Routes>
     </>
   )
