@@ -3,17 +3,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const DashboardCard = () => {
 
-   const user={
-    name:"Gokul",
-    role:'Admin'
-
-   }
-
   //  const user={
-  //   name:"Pinto",
-  //   role:'Student'
-    
+  //   name:"Gokul",
+  //   role:'Admin'
+
   //  }
+
+   const user={
+    name:"Pinto",
+    role:'Student'
+    
+   }
 
   return (
   

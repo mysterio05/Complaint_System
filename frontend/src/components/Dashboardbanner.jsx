@@ -5,17 +5,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const Dashboardbanner = () => {
 
-  const user={
-    name:"Gokul",
-    role:'Admin'
+  // const user={
+  //   name:"Gokul",
+  //   role:'Admin'
 
-   }
-
-  //  const user={
-  //   name:"Pinto",
-  //   role:'Student'
-    
   //  }
+
+   const user={
+    name:"Pinto",
+    role:'Student'
+    
+   }
 
 
   return (

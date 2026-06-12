@@ -10,14 +10,11 @@ import Update from './pages/Update';
 import Dashboard from './pages/Dashboard'
 import AdminComplaintList from './pages/AdminComplaintList'
 import StatusUpdate from './pages/StatusUpdate'
-
 import AdminDashboard from './pages/AdminDashboard'
 import Dashboardbanner from "./components/Dashboardbanner";
-import Activecomplaint from './pages/Activecomplaint'
-import Raisecomplaint from './pages/Raisecomplaint'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Login from './components/Login'
-import Register from './components/Register'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 function App() {
   const [complaints, setComplaints] = useState([
@@ -40,15 +37,14 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/dashboard' element={<Dashboard/>}/>
        <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
-       <Route path='/Activecomplaint' element={<Activecomplaint/>}/>
-       <Route path='/raisecomplaint' element={<Raisecomplaint/>}/>
+      
           <Route path='/add' element={<Add complaints={complaints} setComplaints={setComplaints} />} />
         <Route path='/view' element={<View complaints={complaints} setComplaints={setComplaints} />} />
         <Route path='/update/:id' element={<Update complaints={complaints} setComplaints={setComplaints} />} />
       <Route path='/' element={<Navigate to="/login"/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
-      
+        <Route path='/AdminComplaintList' element={<AdminComplaintList/>}/>
 
     </Routes>
       
