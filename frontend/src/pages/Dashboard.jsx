@@ -2,6 +2,7 @@ import React from 'react'
 import Navbar from '../components/Navbar'
 import Dashboardbanner from '../components/Dashboardbanner'
 import DashboardCard from '../components/DashboardCard'
+import ComplaintChart from '../components/ComplaintChart'
 
 const Dashboard = () => {
   return (
@@ -10,7 +11,7 @@ const Dashboard = () => {
   
       <Dashboardbanner />
       <DashboardCard />
-
+      <ComplaintChart/>
     </div>
     
   )

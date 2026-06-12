@@ -2,17 +2,17 @@ import React from 'react'
 
 const DashboardCard = () => {
 
-  //  const user={
-  //   name:"Gokul",
-  //   role:'Admin'
-
-  //  }
-
    const user={
-    name:"Pinto",
-    role:'Student'
-    
+    name:"Gokul",
+    role:'Admin'
+
    }
+
+  //  const user={
+  //   name:"Pinto",
+  //   role:'Student'
+    
+  //  }
 
   return (
   
