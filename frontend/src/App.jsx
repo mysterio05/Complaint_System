@@ -8,6 +8,9 @@ import Add from './pages/Add';
 import View from './pages/View';
 import Update from './pages/Update';
 import Dashboard from './pages/Dashboard'
+import AdminComplaintList from './pages/AdminComplaintList'
+import StatusUpdate from './pages/StatusUpdate'
+
 import AdminDashboard from './pages/AdminDashboard'
 import Dashboardbanner from "./components/Dashboardbanner";
 import Activecomplaint from './pages/Activecomplaint'
@@ -27,6 +30,9 @@ function App() {
      
     <Navbar />
     <Routes>
+     
+      <Route path='/admin' element={<AdminComplaintList/>}/>
+      <Route path='/admin/update/:id' element={<StatusUpdate/>}/>
       <Route path='/mycomplaints' element={<MyComplaints/>}/>
       <Route path='/complaintdetails' element={<ComplaintDetails/>}/>
         <Route path='/mycomplaint' element={<View complaints={complaints} setComplaints={setComplaints} />}/>
