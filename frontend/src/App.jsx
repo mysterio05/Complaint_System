@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react'
 import './App.css'
-import MyComplaints from './pages/mycomplaints'
-import ComplaintDetails from './pages/complaintdetails'
+import MyComplaints from "./pages/MyComplaints";
+import ComplaintDetails from "./pages/ComplaintDetails";
 import Navbar from './components/Navbar'
 import Add from './pages/Add';
 import View from './pages/View';
