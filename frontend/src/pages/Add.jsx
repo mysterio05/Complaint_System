@@ -15,47 +15,43 @@ const Add = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
+    const userId = localStorage.getItem('userId');
+
+    if (!userId) {
+      alert("You must be logged in to submit a complaint.");
+      return;
+    }
+
     try {
-      await axios.post('http://localhost:5000/api/complaints', form);
-      navigate('/view');
+      const complaintData = { ...form, userId };
+      await axios.post('http://localhost:5000/api/complaints', complaintData);
+    navigate('/mycomplaint');
     } catch (error) {
-      console.error("Error adding complaint:", error);
+      console.error(error);
     }
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: '500px' }}>
-      <h2>Submit a Complaint</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Title</label>
-          <input type="text" className="form-control" name="title" value={form.title} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Category</label>
-          <select className="form-control" name="category" value={form.category} onChange={handleChange}>
-            <option value="Classroom">Classroom</option>
-            <option value="Laboratory">Laboratory</option>
-            <option value="Hostel">Hostel</option>
-            <option value="Library">Library</option>
-            <option value="Internet/Wi-Fi">Internet/Wi-Fi</option>
-            <option value="Electrical">Electrical</option>
-            <option value="Water Supply">Water Supply</option>
-            <option value="Cleanliness">Cleanliness</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Location</label>
-          <input type="text" className="form-control" name="location" value={form.location} onChange={handleChange} required />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Description</label>
-          <textarea className="form-control" name="description" value={form.description} onChange={handleChange} rows="3" required></textarea>
-        </div>
-        <button type="submit" className="btn btn-primary">Submit Complaint</button>
+    <div className="container mt-5" style={{ maxWidth: '400px' }}>
+      <h2>Submit Complaint</h2>
+      <form onSubmit={handleSave}>
+        <input className="form-control mb-2" name="title" placeholder="Title" value={form.title} onChange={handleChange} required />
+        <select className="form-control mb-2" name="category" value={form.category} onChange={handleChange}>
+          <option value="Classroom">Classroom</option>
+          <option value="Laboratory">Laboratory</option>
+          <option value="Hostel">Hostel</option>
+          <option value="Library">Library</option>
+          <option value="Internet/Wi-Fi">Internet/Wi-Fi</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Water Supply">Water Supply</option>
+          <option value="Cleanliness">Cleanliness</option>
+          <option value="Other">Other</option>
+        </select>
+        <input className="form-control mb-2" name="location" placeholder="Location" value={form.location} onChange={handleChange} required />
+        <textarea className="form-control mb-2" name="description" placeholder="Description" value={form.description} onChange={handleChange} rows="3" required />
+        <button type="submit" className="btn btn-success">Submit</button>
       </form>
     </div>
   );

@@ -3,29 +3,30 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const View = () => {
-
   const [complaints, setComplaints] = useState([]);
 
-  
   useEffect(() => {
     fetchComplaints();
   }, []);
 
   const fetchComplaints = async () => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
     try {
-      const res = await axios.get('http://localhost:5000/api/complaints');
+      const res = await axios.get(`http://localhost:5000/api/complaints/user/${userId}`);
       setComplaints(res.data); 
     } catch (error) {
-      console.error("Error fetching complaints:", error);
+      console.error(error);
     }
   };
   
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/complaints/${id}`);
-      setComplaints(complaints.filter(item => item._id !== id)); // Instantly remove from screen
+      setComplaints(complaints.filter(item => item._id !== id));
     } catch (error) {
-      console.error("Error deleting complaint:", error);
+      console.error(error);
     }
   };
 

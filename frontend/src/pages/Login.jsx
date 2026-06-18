@@ -22,17 +22,19 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
   
-    const handleLogin = () => {
-        axios.post(`${API_BASE_URL}/login`, form)
-          .then((res) => {
-            alert("Login successful!");
-            navigate('/dashboard');
-          })
-          .catch((err) => {
-            console.log("Backend offline. Transitioning instantly straight to dashboard interface.", err);
-            navigate('/dashboard');
-          });
-    };
+   const handleLogin = () => {
+    axios.post(`${API_BASE_URL}/login`, form)
+      .then((res) => {
+       
+        localStorage.setItem('userId', res.data._id); 
+        alert("Login successful!");
+        navigate('/dashboard');
+      })
+      .catch((err) => {
+        console.error("Login failed", err);
+        alert("Login failed. Please check your credentials.");
+      });
+};
 
     const handleForgotPasswordSubmit = () => {
         if (!forgotEmail) {
