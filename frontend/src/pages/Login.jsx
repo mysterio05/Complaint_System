@@ -23,17 +23,18 @@ const Login = () => {
     };
   
     const handleLogin = () => {
-        axios.post(`${API_BASE_URL}/login`, form)
-          .then((res) => {
-            alert("Login successful!");
-            navigate('/dashboard');
-          })
-          .catch((err) => {
-            console.log("Backend offline. Transitioning instantly straight to dashboard interface.", err);
-            navigate('/dashboard');
-          });
+    axios.post(`${API_BASE_URL}/api/auth/login`, form)
+      .then((res) => {
+        navigate('/dashboard');
+        
+        localStorage.setItem('token', res.data.token);
+        
+        navigate('/dashboard');
+      })
+      .catch((err) => {
+        alert(error.response?.data?.message || 'Invalid login credentials');
+      });
     };
-
     const handleForgotPasswordSubmit = () => {
         if (!forgotEmail) {
             alert("Please enter your email address.");
