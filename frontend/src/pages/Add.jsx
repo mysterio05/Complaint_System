@@ -1,105 +1,64 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-
-const Add = ({ complaints, setComplaints }) => {
-  const navigate = useNavigate()
-
+const Add = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     title: '',
-    category: '',
-    description: '',
-    location: ''
-  })
+    category: 'Classroom',
+    location: '',
+    description: ''
+  });
 
-  const valueUpdate = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const submitInfo = (e) => {
-    e.preventDefault()
-    
-  
-    setComplaints([...complaints, form])
-    
-    console.log("Form submitted:", form)
-    alert("Complaint logged successfully!")
-    navigate('/view')
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post('http://localhost:5000/api/complaints', form);
+      navigate('/view');
+    } catch (error) {
+      console.error("Error adding complaint:", error);
+    }
+  };
 
   return (
-    <div className="container mt-5">
-      <div className="card p-4 shadow-sm mx-auto" style={{ maxWidth: '600px' }}>
-        <h3 className="mb-4 fw-bold">Raise Complaint</h3>
-        
-        <form onSubmit={submitInfo}>
-          
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Complaint Title</label>
-            <input 
-              type="text" 
-              className="form-control" 
-              name="title" 
-              required
-              value={form.title} 
-              onChange={valueUpdate} 
-            />
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Category</label>
-            <select 
-              className="form-select" 
-              name="category" 
-              required
-              value={form.category} 
-              onChange={valueUpdate}
-            >
-              <option value="">Select Category</option>
-              <option value="Classroom">Classroom</option>
-              <option value="Laboratory">Laboratory</option>
-              <option value="Hostel">Hostel</option>
-              <option value="Library">Library</option>
-              <option value="Internet/Wi-Fi">Internet/Wi-Fi</option>
-              <option value="Electrical">Electrical</option>
-              <option value="Water Supply">Water Supply</option>
-              <option value="Cleanliness">Cleanliness</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Location</label>
-            <input 
-              type="text" 
-              className="form-control" 
-              name="location" 
-              required
-              value={form.location} 
-              onChange={valueUpdate} 
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="form-label fw-semibold">Detailed Description</label>
-            <textarea 
-              className="form-control" 
-              rows="4" 
-              name="description" 
-              required
-              value={form.description} 
-              onChange={valueUpdate}
-            ></textarea>
-          </div>
-
-          <button type="submit" className="btn btn-primary w-100 fw-bold py-2">
-            Save Record
-          </button>
-          
-        </form>
-      </div>
+    <div className="container mt-5" style={{ maxWidth: '500px' }}>
+      <h2>Submit a Complaint</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label className="form-label">Title</label>
+          <input type="text" className="form-control" name="title" value={form.title} onChange={handleChange} required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Category</label>
+          <select className="form-control" name="category" value={form.category} onChange={handleChange}>
+            <option value="Classroom">Classroom</option>
+            <option value="Laboratory">Laboratory</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Library">Library</option>
+            <option value="Internet/Wi-Fi">Internet/Wi-Fi</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Water Supply">Water Supply</option>
+            <option value="Cleanliness">Cleanliness</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Location</label>
+          <input type="text" className="form-control" name="location" value={form.location} onChange={handleChange} required />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Description</label>
+          <textarea className="form-control" name="description" value={form.description} onChange={handleChange} rows="3" required></textarea>
+        </div>
+        <button type="submit" className="btn btn-primary">Submit Complaint</button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default Add
+export default Add;
