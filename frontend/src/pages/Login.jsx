@@ -13,6 +13,7 @@ const Login = () => {
         email: '',
         password: ''
     });
+    const [error, setError] = useState('');
   
     const valueUpdate = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,19 +23,23 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
   
-    const handleLogin = () => {
+    const handleLogin = (e) => {
+    if (e) e.preventDefault();
+    setError('');
     axios.post(`${API_BASE_URL}/api/auth/login`, form)
       .then((res) => {
-        navigate('/dashboard');
-        
         localStorage.setItem('token', res.data.token);
-        
+        if (res.data.user) {
+            localStorage.setItem('user', JSON.stringify(res.data.user));
+        }
         navigate('/dashboard');
       })
       .catch((err) => {
-        alert(error.response?.data?.message || 'Invalid login credentials');
+        const serverMessage = err.response?.data?.message || 'Invalid login credentials';
+        setError(serverMessage); 
       });
     };
+
     const handleForgotPasswordSubmit = () => {
         if (!forgotEmail) {
             alert("Please enter your email address.");
@@ -148,7 +153,11 @@ const Login = () => {
                             </button>
                         </div>
 
-                        
+                        {error && (
+                            <div className="alert alert-danger text-center py-2" role="alert" style={{ fontSize: '14px' }}>
+                                {error}
+                            </div>
+                        )}
                         <button 
                             className="btn w-100 text-white fw-bold mt-2 py-2 border-0" 
                             style={{ backgroundColor: brandColor, borderRadius: '50px', fontSize: '0.9rem', transition: 'background-color 0.2s' }}
