@@ -13,6 +13,7 @@ const Login = () => {
         email: '',
         password: ''
     });
+    const [error, setError] = useState('');
   
     const valueUpdate = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,16 +23,27 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
   
-    const handleLogin = () => {
-        axios.post(`${API_BASE_URL}/login`, form)
-          .then((res) => {
-            alert("Login successful!");
-            navigate('/dashboard');
-          })
-          .catch((err) => {
-            console.log("Backend offline. Transitioning instantly straight to dashboard interface.", err);
-            navigate('/dashboard');
-          });
+    const handleLogin = (e) => {
+    if (e) e.preventDefault();
+    setError('');
+
+    axios.post(`${API_BASE_URL}/auth/login`, form)
+      .then((res) => {
+
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+
+        const userRole = res.data.user.role;
+        if (userRole === 'Admin' ) {
+            navigate('/AdminDashboard');
+        }else if (userRole === 'Student') {
+            navigate('/Dashboard');
+        }
+      })
+      .catch((err) => {
+        const serverMessage = err.response?.data?.message || 'Invalid login credentials';
+        setError(serverMessage); 
+      });
     };
 
     const handleForgotPasswordSubmit = () => {
@@ -147,7 +159,11 @@ const Login = () => {
                             </button>
                         </div>
 
-                        
+                        {error && (
+                            <div className="alert alert-danger text-center py-2" role="alert" style={{ fontSize: '14px' }}>
+                                {error}
+                            </div>
+                        )}
                         <button 
                             className="btn w-100 text-white fw-bold mt-2 py-2 border-0" 
                             style={{ backgroundColor: brandColor, borderRadius: '50px', fontSize: '0.9rem', transition: 'background-color 0.2s' }}
