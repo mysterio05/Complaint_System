@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../App.css' 
+import '../App.css';
 import API_BASE_URL from '../config';
 
 const Register = () => {
@@ -24,16 +24,21 @@ const Register = () => {
     };
 
     const submitInfo = () => {
-    axios.post(`${API_BASE_URL}/api/auth/register`, form)
-      .then((res) => {
-        alert("Registration Successful! Please log in.");
-        navigate('/login'); 
-      })
-      .catch((err) => {
-        const errorMsg = err.response?.data?.message || "Registration failed.";
-        alert(errorMsg);
-        console.error("Registration Error:", err);
-      });
+        if (!form.role) {
+            alert("Please choose a profile role.");
+            return;
+        }
+
+        axios.post(`${API_BASE_URL}/api/auth/register`, form)
+          .then((res) => {
+            alert("Registration Successful! Please log in.");
+            navigate('/login'); 
+          })
+          .catch((err) => {
+            const errorMsg = err.response?.data?.message || "Registration failed.";
+            alert(errorMsg);
+            console.error("Registration Error:", err);
+          });
     };
 
     const brandColor = '#2d3db4';
@@ -41,8 +46,6 @@ const Register = () => {
 
     return (
         <div style={{ backgroundColor: '#f4f6f9', minHeight: '100vh', width: '100%' }} className="d-flex flex-column">
-            
-            
             <style>{`
                 .unified-input-group {
                     border: 1px solid #ced4da;
@@ -71,7 +74,6 @@ const Register = () => {
                 }
             `}</style>
 
-           
             <div className="d-flex align-items-center gap-2 px-4 py-3 w-100" style={{ boxSizing: 'border-box' }}>
                 <div className="text-white d-flex align-items-center justify-content-center" style={{ backgroundColor: brandColor, padding: '8px', borderRadius: '8px' }}>
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
@@ -81,11 +83,8 @@ const Register = () => {
                 </span>
             </div>
 
-           
             <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center w-100 pb-5 px-2" style={{ boxSizing: 'border-box' }}>
                 <div className="card border-0 shadow-sm w-100" style={{ maxWidth: '400px', borderRadius: '24px', overflow: 'hidden', backgroundColor: '#ffffff' }}>
-                    
-                    
                     <div className="text-white d-flex flex-column align-items-center text-center pt-4 pb-3 px-3" style={{ backgroundColor: brandColor }}>
                         <div className="d-flex align-items-center justify-content-center mb-2" style={{ backgroundColor: 'rgba(255, 255, 255, 0.18)', padding: '10px', borderRadius: '12px' }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
@@ -94,10 +93,7 @@ const Register = () => {
                         <p className="m-0" style={{ color: 'rgba(255, 255, 255, 0.75)', fontSize: '0.82rem' }}>Join the student complaint portal</p>
                     </div>
 
-                    
                     <div className="card-body p-4 d-flex flex-column gap-3">
-                        
-                      
                         <div className="input-group unified-input-group">
                             <span className="input-group-text px-2.5 text-muted">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
@@ -113,7 +109,6 @@ const Register = () => {
                             />
                         </div>
 
-                       
                         <div className="input-group unified-input-group">
                             <span className="input-group-text px-2.5 text-muted">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -129,7 +124,6 @@ const Register = () => {
                             />
                         </div>
 
-                        
                         <div className="input-group unified-input-group">
                             <span className="input-group-text px-2.5 text-muted">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -156,7 +150,6 @@ const Register = () => {
                             </button>
                         </div>
 
-                       
                         <div>
                             <select 
                                 className="form-select custom-select" 
@@ -167,11 +160,10 @@ const Register = () => {
                             >
                                 <option value="" disabled>Choose your role</option>
                                 <option value="Student">Student</option>
-                                <option value="Admin">Administrator</option>
+                                <option value="Admin">Admin</option>
                             </select>
                         </div>
 
-                       
                         <button 
                             className="btn w-100 text-white fw-bold mt-2 py-2 border-0" 
                             style={{ backgroundColor: brandColor, borderRadius: '50px', fontSize: '0.9rem', transition: 'background-color 0.2s' }}
@@ -191,7 +183,6 @@ const Register = () => {
                             </span>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
