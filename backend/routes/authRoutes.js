@@ -18,13 +18,24 @@ router.get('/profile', protect, (req, res) => {
 router.put('/profile', protect, async (req, res) => {
     try {
         const { name, email } = req.body;
+
+        // Check if email is taken by another user
+        if (email !== req.user.email) {
+            const existing = await User.findOne({ email });
+            if (existing) {
+                return res.status(400).json({ message: 'Email is already in use by another account.' });
+            }
+        }
+
         const updated = await User.findByIdAndUpdate(
             req.user._id,
-            { name, email },
-            { new: true, runValidators: true }
+            { $set: { name, email } },
+            { new: true }
         ).select('-password');
+
         res.json({ message: 'Profile updated successfully', user: updated });
     } catch (error) {
+        console.error('Profile update error:', error.message);
         res.status(400).json({ message: error.message });
     }
 });
