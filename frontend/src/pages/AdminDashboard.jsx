@@ -1,26 +1,64 @@
-import React from 'react'
-import Dashboardbanner from '../components/Dashboardbanner'
-import DashboardCard from '../components/DashboardCard'
-import ComplaintChart from '../components/ComplaintChart'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import Dashboardbanner from '../components/Dashboardbanner';
+import DashboardCard from '../components/DashboardCard';
+import ComplaintChart from '../components/ComplaintChart';
+
 const AdminDashboard = () => {
-    const data = [
-      { category: "Classroom", complaints: 10 },
-      { category: "Laboratory", complaints: 8 },
-      { category: "Hostel", complaints: 6 },
-      { category: "Library", complaints: 4 },
-      { category: "Wi-Fi", complaints: 12 },
-      { category: "Electrical", complaints: 5 },
-      { category: "Water", complaints: 3 },
-      { category: "Clean", complaints: 7 },
-      { category: "Other", complaints: 2 }
-    ];
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchComplaints();
+  }, []);
+
+  const fetchComplaints = async () => {
+    try {
+      const res = await axios.get(
+        'http://localhost:5000/api/complaints'
+      );
+
+      const complaints = res.data;
+
+      const categoryCount = {};
+
+      complaints.forEach((complaint) => {
+        const category = complaint.category || 'Other';
+
+        categoryCount[category] =
+          (categoryCount[category] || 0) + 1;
+      });
+
+      const chartData = Object.entries(categoryCount).map(
+        ([category, count]) => ({
+          category,
+          complaints: count
+        })
+      );
+
+      setData(chartData);
+    } catch (error) {
+      console.error('Error fetching complaints:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div>
+    <>
       <Dashboardbanner />
       <DashboardCard />
-       <ComplaintChart complaint={data}/>
-      </div>
-  )
-}
 
-export default AdminDashboard
+      {loading ? (
+        <div className="text-center mt-4">
+          <h5>Loading chart...</h5>
+        </div>
+      ) : (
+        <ComplaintChart data={data} />
+      )}
+    </>
+  );
+};
+
+export default AdminDashboard;
