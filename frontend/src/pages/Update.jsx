@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE_URL from '../config';
 
 const Update = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const Update = () => {
   useEffect(() => {
     const fetchComplaint = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/complaints/${id}`);
+        const res = await axios.get(`${API_BASE_URL}/complaints/${id}`);
         setForm(res.data);
       } catch (error) {
         console.error(error);
@@ -32,10 +33,10 @@ const Update = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/complaints/${id}`, form);
+      await axios.put(`${API_BASE_URL}/complaints/${id}`, form);
       navigate('/mycomplaint');
     } catch (error) {
-      alert("Failed to update complaint");
+      alert("Failed to update complaint: " + (error.response?.data?.error || error.message));
     }
   };
 
@@ -57,7 +58,7 @@ const Update = () => {
         </select>
         <input className="form-control mb-2" name="location" value={form.location} onChange={handleChange} required />
         <textarea className="form-control mb-2" name="description" value={form.description} onChange={handleChange} rows="3" required />
-        <select className="form-control mb-2" name="status" value={form.status} onChange={handleChange}>
+        <select className="form-control mb-2" name="status" value={form.status} onChange={handleChange} disabled>
           <option value="Pending">Pending</option>
           <option value="In Progress">In Progress</option>
           <option value="Resolved">Resolved</option>

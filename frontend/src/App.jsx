@@ -24,10 +24,10 @@ function App() {
         <Route path='/add' element={<Add />} />
         <Route path='/mycomplaint' element={<View />} />
         <Route path='/update/:id' element={<Update />} />
-        <Route path='/admin' element={<AdminComplaintList />} />
+        <Route path='/AdminComplaintList' element={<AdminComplaintList />} />
         <Route path='/admin/update/:id' element={<StatusUpdate />} />
         <Route path='/mycomplaints' element={<MyComplaints />} />
-        <Route path='/complaintdetails' element={<ComplaintDetails />} />
+        <Route path='/complaintdetails/:id' element={<ComplaintDetails />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/AdminDashboard' element={<AdminDashboard />} />
       </Routes>

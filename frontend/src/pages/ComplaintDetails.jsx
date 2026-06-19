@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
+import API_BASE_URL from '../config';
 import './ComplaintDetails.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
@@ -9,7 +10,7 @@ const ComplaintDetails = () => {
     const { id } = useParams();
     const [complaint, setComplaint] = useState({});
     useEffect(() => {
-    axios.get(`http://localhost:5000/api/complaints/${id}`)
+    axios.get(`${API_BASE_URL}/complaints/${id}`)
          .then((res) => {
                 setComplaint(res.data);
             })

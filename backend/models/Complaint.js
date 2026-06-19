@@ -5,6 +5,9 @@ const complaintSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    createdBy: {
+        type: String
+    },
     title: {
         type: String,
         required: true

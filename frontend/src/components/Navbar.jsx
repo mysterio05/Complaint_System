@@ -3,12 +3,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import './nav.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 const Navbar = () => {
-  //const user = { name: "Pinto", role: 'Student' };
- const user = { name: "Gokul", role: 'Admin' };
+  const location = useLocation();
+  const storedUser = localStorage.getItem('user');
+  const user = storedUser ? JSON.parse(storedUser) : { name: "Pinto", role: 'Student' };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    localStorage.removeItem('userId');
+  };
 
   return (
     <nav className="navbar navbar-expand-lg custom-navbar navbar-dark">
@@ -52,7 +59,7 @@ const Navbar = () => {
               </li>
 
               <li className="nav-item">
-                <Link to="/login" className='nav-link d-flex flex-column align-items-center'>
+                <Link to="/login" onClick={handleLogout} className='nav-link d-flex flex-column align-items-center'>
                   <i className="bi bi-person fs-4"></i>Logout
                 </Link>
               </li>
@@ -75,7 +82,7 @@ const Navbar = () => {
               </li>
 
               <li className="nav-item">
-                <Link to="/login" className='nav-link d-flex flex-column align-items-center'>
+                <Link to="/login" onClick={handleLogout} className='nav-link d-flex flex-column align-items-center'>
                   <i className="bi bi-person fs-4"></i>Logout
                 </Link>
               </li>

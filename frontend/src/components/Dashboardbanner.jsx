@@ -5,17 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const Dashboardbanner = () => {
 
-  const user={
-    name:"Gokul",
-    role:'Admin'
-
-   }
-
-  //  const user={
-  //   name:"Pinto",
-  //   role:'Student'
-    
-  //  }
+  const storedUser = localStorage.getItem('user');
+  const user = storedUser ? JSON.parse(storedUser) : null;
 
 
   return (

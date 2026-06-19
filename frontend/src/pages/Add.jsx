@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE_URL from "../config";
 
 const Add = () => {
   const navigate = useNavigate();
@@ -19,13 +20,14 @@ const Add = () => {
     e.preventDefault();
     const userId = localStorage.getItem('userId');
 
+    
     try {
-      await axios.post('http://localhost:5000/api/complaints', { ...form, user: userId });
+      await axios.post(`${API_BASE_URL}/complaints`, { ...form, createdBy: userId });
       navigate('/mycomplaint');
     } catch (error) {
-      console.error(error);
+      console.error("Submission failed:", error.response?.data || error.message);
     }
-  };
+};
 
   return (
     <div className="container mt-5" style={{ maxWidth: '400px' }}>
@@ -37,6 +39,10 @@ const Add = () => {
           <option value="Laboratory">Laboratory</option>
           <option value="Hostel">Hostel</option>
           <option value="Library">Library</option>
+          <option value="Internet/Wi-Fi">Internet/Wi-Fi</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Water Supply">Water Supply</option>
+          <option value="Cleanliness">Cleanliness</option>
           <option value="Other">Other</option>
         </select>
         <input className="form-control mb-2" name="location" placeholder="Location" value={form.location} onChange={handleChange} required />
