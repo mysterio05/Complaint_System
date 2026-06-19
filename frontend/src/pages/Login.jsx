@@ -26,19 +26,21 @@ const Login = () => {
     const handleLogin = (e) => {
     if (e) e.preventDefault();
     setError('');
+
     axios.post(`${API_BASE_URL}/api/auth/login`, form)
       .then((res) => {
+
         localStorage.setItem('token', res.data.token);
-        if (res.data.user) {
-            localStorage.setItem('user', JSON.stringify(res.data.user));
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+
+        const userRole = res.data.user.role;
+        if (userRole === 'Admin') {
+            navigate('/AdminDashboard');
+        }else if (userRole === 'Student') {
+            navigate('/StudentDashboard');
         }
-        navigate('/dashboard');
       })
-      .catch((err) => {
-        const serverMessage = err.response?.data?.message || 'Invalid login credentials';
-        setError(serverMessage); 
-      });
-    };
+};
 
     const handleForgotPasswordSubmit = () => {
         if (!forgotEmail) {

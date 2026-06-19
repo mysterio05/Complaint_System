@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
-  //const user = { name: "Pinto", role: 'Student' };
- const user = { name: "Gokul", role: 'Admin' };
+  const user = { name: "Pinto", role: 'Student' };
+//  const user = { name: "Gokul", role: 'Admin' };
 
   return (
     <nav className="navbar navbar-expand-lg custom-navbar navbar-dark">
@@ -46,7 +46,7 @@ const Navbar = () => {
               </li>
 
               <li className="nav-item"> 
-                <Link to="/raisecomplaint" className='nav-link d-flex flex-column align-items-center'>
+                <Link to="/Add" className='nav-link d-flex flex-column align-items-center'>
                   <i className="bi bi-file-earmark-plus fs-4"></i>Raise Complaint
                 </Link>
               </li>
@@ -69,7 +69,7 @@ const Navbar = () => {
               </li>
 
               <li className="nav-item">
-                <Link to="/Activecomplaint" className='nav-link d-flex flex-column align-items-center'>
+                <Link to="/AdminComplaintList" className='nav-link d-flex flex-column align-items-center'>
                   <i className="bi bi-card-text fs-4"></i>Active Complaint
                 </Link>
               </li>
