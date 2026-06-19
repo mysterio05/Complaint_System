@@ -31,7 +31,7 @@ function App() {
       <Route path='/admin' element={<AdminComplaintList/>}/>
       <Route path='/admin/update/:id' element={<StatusUpdate/>}/>
       <Route path='/mycomplaints' element={<MyComplaints/>}/>
-      <Route path='/complaintdetails' element={<ComplaintDetails/>}/>
+      <Route path='/complaintdetails/:id' element={<ComplaintDetails/>}/>
         <Route path='/mycomplaint' element={<View complaints={complaints} setComplaints={setComplaints} />}/>
        <Route path='/' element={<Login/>}/>
       <Route path='/login' element={<Login/>}/>
