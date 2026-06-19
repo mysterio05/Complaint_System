@@ -13,6 +13,7 @@ const Login = () => {
         email: '',
         password: ''
     });
+    const [error, setError] = useState('');
   
     const valueUpdate = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,17 +23,28 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
   
-    const handleLogin = () => {
-        axios.post(`${API_BASE_URL}/login`, form)
+    const handleLogin = (e) => {
+        if (e) e.preventDefault();
+        setError('');
+
+        axios.post(`${API_BASE_URL}/api/auth/login`, form)
           .then((res) => {
-            alert("Login successful!");
-            navigate('/dashboard');
+              localStorage.setItem('token', res.data.token);
+              localStorage.setItem('user', JSON.stringify(res.data.user));
+
+              const userRole = res.data.user.role;a
+              if (userRole === 'Admin' || userRole === 'admin') {
+                  navigate('/AdminDashboard');
+              } else {
+                  navigate('/Dashboard');
+              }
           })
           .catch((err) => {
-            console.log("Backend offline. Transitioning instantly straight to dashboard interface.", err);
-            navigate('/dashboard');
+              const errMsg = err.response?.data?.message || "Invalid Email or Password.";
+              setError(errMsg);
+              console.error("Login Error:", err);
           });
-    };
+    }; 
 
     const handleForgotPasswordSubmit = () => {
         if (!forgotEmail) {
@@ -49,7 +61,6 @@ const Login = () => {
 
     return (
         <div style={{ backgroundColor: '#f4f6f9', minHeight: '100vh', width: '100%' }} className="d-flex flex-column">
-            
             <style>{`
                 .unified-input-group {
                     border: 1px solid #ced4da;
@@ -78,7 +89,6 @@ const Login = () => {
                 }
             `}</style>
 
-            
             <div className="d-flex align-items-center gap-2 px-4 py-3 w-100" style={{ boxSizing: 'border-box' }}>
                 <div className="text-white d-flex align-items-center justify-content-center" style={{ backgroundColor: brandColor, padding: '8px', borderRadius: '8px' }}>
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
@@ -88,11 +98,8 @@ const Login = () => {
                 </span>
             </div>
 
-           
             <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center w-100 pb-5 px-2" style={{ boxSizing: 'border-box' }}>
                 <div className="card border-0 shadow-sm w-100" style={{ maxWidth: '400px', borderRadius: '24px', overflow: 'hidden', backgroundColor: '#ffffff' }}>
-                    
-                    
                     <div className="text-white d-flex flex-column align-items-center text-center pt-4 pb-3 px-3" style={{ backgroundColor: brandColor }}>
                         <div className="d-flex align-items-center justify-content-center mb-2" style={{ backgroundColor: 'rgba(255, 255, 255, 0.18)', padding: '10px', borderRadius: '12px' }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
@@ -101,10 +108,7 @@ const Login = () => {
                         <p className="m-0" style={{ color: 'rgba(255, 255, 255, 0.75)', fontSize: '0.82rem' }}>Sign in to your CCMS account</p>
                     </div>
 
-                    
                     <div className="card-body p-4 d-flex flex-column gap-3">
-                        
-                       
                         <div className="input-group unified-input-group">
                             <span className="input-group-text px-2.5 text-muted">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -120,7 +124,6 @@ const Login = () => {
                             />
                         </div>
 
-                       
                         <div className="input-group unified-input-group">
                             <span className="input-group-text px-2.5 text-muted">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6c757d" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -147,7 +150,11 @@ const Login = () => {
                             </button>
                         </div>
 
-                        
+                        {error && (
+                            <div className="alert alert-danger text-center py-2" role="alert" style={{ fontSize: '14px' }}>
+                                {error}
+                            </div>
+                        )}
                         <button 
                             className="btn w-100 text-white fw-bold mt-2 py-2 border-0" 
                             style={{ backgroundColor: brandColor, borderRadius: '50px', fontSize: '0.9rem', transition: 'background-color 0.2s' }}
@@ -180,7 +187,6 @@ const Login = () => {
                 </div>
             </div>
 
-            
             {openForgot && (
                 <div className="modal show d-block fade-in" tabIndex="-1" style={{ backgroundColor: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }}>
                     <div className="modal-dialog modal-dialog-centered" style={{ maxWidth: '360px' }}>
