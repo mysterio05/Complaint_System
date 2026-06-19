@@ -1,98 +1,161 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-const DashboardCard = ({ complaints = [] }) => {
-  const storedUser = localStorage.getItem('user');
-  const user = storedUser ? JSON.parse(storedUser) : null;
 
-  const totalCount = complaints.length;
-  const pendingCount = complaints.filter(c => c.status === 'Pending').length;
-  const inProgressCount = complaints.filter(c => c.status === 'In Progress').length;
-  const resolvedCount = complaints.filter(c => c.status === 'Resolved').length;
+const DashboardCard = () => {
+  const [user, setUser] = useState(null);
+  const [stats, setStats] = useState({
+    total: 0,
+    pending: 0,
+    inProgress: 0,
+    resolved: 0
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) return;
+
+        // Get logged in user
+        const profileRes = await axios.get(
+          "http://localhost:5000/api/auth/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        const currentUser = profileRes.data.user;
+        setUser(currentUser);
+
+        let complaintsRes;
+
+        // Student → only own complaints
+        if (currentUser.role === "Student") {
+          complaintsRes = await axios.get(
+            `http://localhost:5000/api/complaints/user/${currentUser._id}`
+          );
+        }
+        // Admin → all complaints
+        else {
+          complaintsRes = await axios.get(
+            "http://localhost:5000/api/complaints"
+          );
+        }
+
+        const complaints = complaintsRes.data;
+
+        setStats({
+          total: complaints.length,
+          pending: complaints.filter(
+            c => c.status === "Pending"
+          ).length,
+          inProgress: complaints.filter(
+            c => c.status === "In Progress"
+          ).length,
+          resolved: complaints.filter(
+            c => c.status === "Resolved"
+          ).length
+        });
+
+      } catch (error) {
+        console.error("Dashboard Error:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!user) {
+    return (
+      <div className="text-center mt-5">
+        <h5>Loading Dashboard...</h5>
+      </div>
+    );
+  }
 
   return (
     <div className="container mt-3">
       <div className="row g-3">
-        {user && user.role === "Student" && (
+
+        {user.role === "Student" && (
           <>
-            {/* Total */}
-            <div className="col-12 col-md-3">
+            <div className="col-12 col-md-4">
               <div className="card shadow-sm border-start border-primary border-4">
                 <div className="card-body">
                   <p className="text-muted mb-1">Total Complaints</p>
-                  <h3 className="fw-bold">{totalCount}</h3>
+                  <h3 className="fw-bold">{stats.total}</h3>
                 </div>
               </div>
             </div>
 
-            {/* Pending */}
-            <div className="col-12 col-md-3">
+            <div className="col-12 col-md-4">
               <div className="card shadow-sm border-start border-danger border-4">
                 <div className="card-body">
                   <p className="text-muted mb-1">Pending Complaints</p>
-                  <h3 className="fw-bold">{pendingCount}</h3>
+                  <h3 className="fw-bold">{stats.pending}</h3>
                 </div>
               </div>
             </div>
 
-            {/* Resolved */}
-            <div className="col-12 col-md-3">
+            <div className="col-12 col-md-4">
               <div className="card shadow-sm border-start border-success border-4">
                 <div className="card-body">
                   <p className="text-muted mb-1">Resolved Complaints</p>
-                  <h3 className="fw-bold">{resolvedCount}</h3>
+                  <h3 className="fw-bold">{stats.resolved}</h3>
                 </div>
               </div>
             </div>
           </>
         )}
 
-        {user && user.role === "Admin" && (
+        {user.role === "Admin" && (
           <>
-            {/* Total */}
             <div className="col-12 col-md-3">
               <div className="card shadow-sm border-start border-primary border-4">
                 <div className="card-body">
                   <p className="text-muted mb-1">Total Complaints</p>
-                  <h3 className="fw-bold">{totalCount}</h3>
+                  <h3 className="fw-bold">{stats.total}</h3>
                 </div>
               </div>
             </div>
 
-            {/* Pending */}
             <div className="col-12 col-md-3">
               <div className="card shadow-sm border-start border-danger border-4">
                 <div className="card-body">
                   <p className="text-muted mb-1">Pending Complaints</p>
-                  <h3 className="fw-bold">{pendingCount}</h3>
+                  <h3 className="fw-bold">{stats.pending}</h3>
                 </div>
               </div>
             </div>
 
-            {/* In Progress */}
             <div className="col-12 col-md-3">
               <div className="card shadow-sm border-start border-warning border-4">
                 <div className="card-body">
                   <p className="text-muted mb-1">In Progress</p>
-                  <h3 className="fw-bold">{inProgressCount}</h3>
+                  <h3 className="fw-bold">{stats.inProgress}</h3>
                 </div>
               </div>
             </div>
 
-            {/* Resolved */}
             <div className="col-12 col-md-3">
               <div className="card shadow-sm border-start border-success border-4">
                 <div className="card-body">
                   <p className="text-muted mb-1">Resolved Complaints</p>
-                  <h3 className="fw-bold">{resolvedCount}</h3>
+                  <h3 className="fw-bold">{stats.resolved}</h3>
                 </div>
               </div>
             </div>
           </>
         )}
+
       </div>
     </div>
   );
 };
 
-export default DashboardCard
+export default DashboardCard;
