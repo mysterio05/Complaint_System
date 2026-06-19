@@ -27,16 +27,16 @@ mongoose.connect(process.env.MONGO_URI)
     });
 require('dotenv').config();
 
-const express = require('express');
-const cors = require('cors');
+
+
 const connectDB = require('./config/db');
-const mongoose = require('mongoose');
+
 
 const authRoutes = require('./routes/authRoutes');
 const Complaint = require('./models/Complaint'); 
 
-const app = express();
-const port = 5000;
+
+
 
 // Middleware
 app.use(cors());
