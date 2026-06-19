@@ -40,7 +40,7 @@ const Dashboardbanner = () => {
 
       {user.role === "Student" && (
         <div className="banner-left">
-          <h2>Welcome Back, {user.name} 👋</h2>
+          <h2>Welcome Back, {user.name}</h2>
 
           <p>
             Track your complaints and their current status here.
@@ -54,7 +54,7 @@ const Dashboardbanner = () => {
 
       {user.role === "Admin" && (
         <div className="banner-left">
-          <h2>Welcome Back Admin, {user.name} 👋</h2>
+          <h2>Welcome Back Admin, {user.name}</h2>
 
           <p>
             Manage complaints and monitor their current status here.
