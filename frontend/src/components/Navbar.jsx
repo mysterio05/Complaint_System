@@ -86,7 +86,7 @@ const Navbar = () => {
 
                 <li className="nav-item">
                   <Link
-                    to="/mycomplaints"
+                    to="/view"
                     className="nav-link d-flex flex-column align-items-center"
                   >
                     <i className="bi bi-card-text fs-4"></i>

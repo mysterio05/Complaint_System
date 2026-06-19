@@ -23,7 +23,7 @@ const Add = () => {
     
     try {
       await axios.post(`${API_BASE_URL}/complaints`, { ...form, createdBy: userId });
-      navigate('/mycomplaint');
+      navigate('/view');
     } catch (error) {
       console.error("Submission failed:", error.response?.data || error.message);
     }

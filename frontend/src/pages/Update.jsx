@@ -34,7 +34,7 @@ const Update = () => {
     e.preventDefault();
     try {
       await axios.put(`${API_BASE_URL}/complaints/${id}`, form);
-      navigate('/mycomplaint');
+      navigate('/view');
     } catch (error) {
       alert("Failed to update complaint: " + (error.response?.data?.error || error.message));
     }
