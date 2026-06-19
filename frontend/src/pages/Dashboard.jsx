@@ -36,7 +36,7 @@ const Dashboard = () => {
   return (
     <div>
       <Dashboardbanner />
-      <DashboardCard complaints={complaints} />
+      <DashboardCard />
       <ComplaintChart complaint={data} />
     </div>
   )
