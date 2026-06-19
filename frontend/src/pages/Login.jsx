@@ -13,6 +13,7 @@ const Login = () => {
         email: '',
         password: ''
     });
+    const [error, setError] = useState('');
   
     const valueUpdate = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,18 +23,23 @@ const Login = () => {
         setShowPassword(!showPassword);
     };
   
-   const handleLogin = () => {
-    axios.post(`${API_BASE_URL}/login`, form)
+    const handleLogin = (e) => {
+    if (e) e.preventDefault();
+    setError('');
+
+    axios.post(`${API_BASE_URL}/api/auth/login`, form)
       .then((res) => {
-       
-        localStorage.setItem('userId', res.data._id); 
-        alert("Login successful!");
-        navigate('/dashboard');
+
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+
+        const userRole = res.data.user.role;
+        if (userRole === 'Admin') {
+            navigate('/AdminDashboard');
+        }else if (userRole === 'Student') {
+            navigate('/StudentDashboard');
+        }
       })
-      .catch((err) => {
-        console.error("Login failed", err);
-        alert("Login failed. Please check your credentials.");
-      });
 };
 
     const handleForgotPasswordSubmit = () => {
@@ -149,7 +155,11 @@ const Login = () => {
                             </button>
                         </div>
 
-                        
+                        {error && (
+                            <div className="alert alert-danger text-center py-2" role="alert" style={{ fontSize: '14px' }}>
+                                {error}
+                            </div>
+                        )}
                         <button 
                             className="btn w-100 text-white fw-bold mt-2 py-2 border-0" 
                             style={{ backgroundColor: brandColor, borderRadius: '50px', fontSize: '0.9rem', transition: 'background-color 0.2s' }}

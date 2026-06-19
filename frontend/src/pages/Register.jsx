@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../App.css' 
 import API_BASE_URL from '../config';
 
 const Register = () => {
@@ -23,16 +24,16 @@ const Register = () => {
     };
 
     const submitInfo = () => {
-        
-        axios.post(`${API_BASE_URL}/register`, form)
-          .then((res) => {
-            alert("Registration Successful!");
-            navigate('/dashboard');
-          })
-          .catch((err) => {
-            console.log("Backend offline. Bypassing directly to login screen for testing.", err);
-            navigate('/dashboard');
-          });
+    axios.post(`${API_BASE_URL}/api/auth/register`, form)
+      .then((res) => {
+        alert("Registration Successful! Please log in.");
+        navigate('/login'); 
+      })
+      .catch((err) => {
+        const errorMsg = err.response?.data?.message || "Registration failed.";
+        alert(errorMsg);
+        console.error("Registration Error:", err);
+      });
     };
 
     const brandColor = '#2d3db4';

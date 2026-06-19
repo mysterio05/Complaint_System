@@ -1,16 +1,30 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
 require('dotenv').config();
 
-const app = express();
-const port = process.env.PORT || 5000;
+const express = require('express');
+const cors = require('cors');
+const connectDB = require('./config/db');
 
+const authRoutes = require('./routes/authRoutes');
+
+const app = express();
+const port = 5000;
+
+const mongoose = require('mongoose');
 const Complaint = require('./models/Complaint'); 
 
 app.use(cors());
 app.use(express.json());
 
+connectDB();
+
+app.use('/api/auth', authRoutes);
+
+app.get('/', (req, res) => {
+    res.send('Complaint System Backend API is running smoothly...');
+});
+
+app.listen(port, () => {
+    console.log("Connected to port:", port);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected successfully to MongoDB Atlas"))
   .catch((err) => console.error("MongoDB connection failed error:", err));

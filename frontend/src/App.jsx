@@ -11,7 +11,7 @@ import AdminComplaintList from './pages/AdminComplaintList'
 import StatusUpdate from './pages/StatusUpdate'
 import AdminDashboard from './pages/AdminDashboard'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import Login from './pages/Login'
+import Login from './pages/Login'        
 import Register from './pages/Register'
 import axios from 'axios';
 
