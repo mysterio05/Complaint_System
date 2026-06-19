@@ -25,11 +25,10 @@ const Register = () => {
 
     const submitInfo = () => {
         if (!form.role) {
-            alert("Please choose a profile role.");
+            alert("Please select a role (Student or Admin) before registering.");
             return;
         }
-
-        axios.post(`${API_BASE_URL}/api/auth/register`, form)
+        axios.post(`${API_BASE_URL}/auth/register`, form)
           .then((res) => {
             alert("Registration Successful! Please log in.");
             navigate('/login'); 
@@ -85,6 +84,7 @@ const Register = () => {
 
             <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center w-100 pb-5 px-2" style={{ boxSizing: 'border-box' }}>
                 <div className="card border-0 shadow-sm w-100" style={{ maxWidth: '400px', borderRadius: '24px', overflow: 'hidden', backgroundColor: '#ffffff' }}>
+                    
                     <div className="text-white d-flex flex-column align-items-center text-center pt-4 pb-3 px-3" style={{ backgroundColor: brandColor }}>
                         <div className="d-flex align-items-center justify-content-center mb-2" style={{ backgroundColor: 'rgba(255, 255, 255, 0.18)', padding: '10px', borderRadius: '12px' }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
@@ -160,7 +160,7 @@ const Register = () => {
                             >
                                 <option value="" disabled>Choose your role</option>
                                 <option value="Student">Student</option>
-                                <option value="Admin">Admin</option>
+                                <option value="Admin">Administrator</option>
                             </select>
                         </div>
 
@@ -183,6 +183,7 @@ const Register = () => {
                             </span>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

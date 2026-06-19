@@ -9,7 +9,7 @@ const ComplaintDetails = () => {
     const { id } = useParams();
     const [complaint, setComplaint] = useState({});
     useEffect(() => {
-    axios.get(`http://localhost:5000/complaints/${id}`)
+    axios.get(`http://localhost:5000/api/complaints/${id}`)
          .then((res) => {
                 setComplaint(res.data);
             })
