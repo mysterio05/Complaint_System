@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './MyComplaints.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const MyComplaints = () => {
   const [complaints, setComplaints] = useState([]);
@@ -33,15 +34,13 @@ const MyComplaints = () => {
           <tbody>
             {complaints.map((item) => (
               <tr key={item._id}>
-                <td>{item._id.slice(-6)}</td>
+                <td>{item._id}</td>
                 <td>{item.title}</td>
                 <td>{item.category}</td>
                 <td>{item.location}</td>
-                <td>{item.createdDate ? new Date(item.createdDate).toLocaleDateString() : "N/A"}</td>
+                <td>{new Date(item.createdDate).toLocaleDateString()}</td>
                 <td>{item.status}</td>
-                <td>
-                  <a href="/complaintdetails" className="text-decoration-none">View Details</a>
-                </td>
+                <Link to={`/complaintdetails/${item._id}`} className="text-decoration-none">View Details</Link>
               </tr>
             ))}
           </tbody>

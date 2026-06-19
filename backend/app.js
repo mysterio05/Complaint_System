@@ -3,32 +3,34 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
+const mongoose = require('mongoose');
 
 const authRoutes = require('./routes/authRoutes');
+const Complaint = require('./models/Complaint'); 
 
 const app = express();
 const port = 5000;
 
-const mongoose = require('mongoose');
-const Complaint = require('./models/Complaint'); 
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 
+// Database Connection
 connectDB();
 
-app.use('/api/auth', authRoutes);
-
-app.get('/', (req, res) => {
-    res.send('Complaint System Backend API is running smoothly...');
-});
-
-app.listen(port, () => {
-    console.log("Connected to port:", port);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("Connected successfully to MongoDB Atlas"))
   .catch((err) => console.error("MongoDB connection failed error:", err));
 
+// Auth Routes
+app.use('/api/auth', authRoutes);
+
+// Base Route
+app.get('/', (req, res) => {
+    res.send('Complaint System Backend API is running smoothly...');
+});
+
+// Complaint Routes
 app.get('/api/complaints', async (req, res) => {
   try {
     const complaints = await Complaint.find();
@@ -84,6 +86,7 @@ app.delete('/api/complaints/:id', async (req, res) => {
   }
 });
 
+// Start Server
 app.listen(port, () => {
   console.log(`Server is connected to port: ${port}`);
 });
