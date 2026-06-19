@@ -19,15 +19,9 @@ const Add = () => {
     e.preventDefault();
     const userId = localStorage.getItem('userId');
 
-    if (!userId) {
-      alert("You must be logged in to submit a complaint.");
-      return;
-    }
-
     try {
-      const complaintData = { ...form, userId };
-      await axios.post('http://localhost:5000/api/complaints', complaintData);
-    navigate('/mycomplaint');
+      await axios.post('http://localhost:5000/api/complaints', { ...form, user: userId });
+      navigate('/mycomplaint');
     } catch (error) {
       console.error(error);
     }
@@ -43,10 +37,6 @@ const Add = () => {
           <option value="Laboratory">Laboratory</option>
           <option value="Hostel">Hostel</option>
           <option value="Library">Library</option>
-          <option value="Internet/Wi-Fi">Internet/Wi-Fi</option>
-          <option value="Electrical">Electrical</option>
-          <option value="Water Supply">Water Supply</option>
-          <option value="Cleanliness">Cleanliness</option>
           <option value="Other">Other</option>
         </select>
         <input className="form-control mb-2" name="location" placeholder="Location" value={form.location} onChange={handleChange} required />

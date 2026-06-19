@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
-  const user = { name: "Pinto", role: 'Student' };
-//  const user = { name: "Gokul", role: 'Admin' };
+  //const user = { name: "Pinto", role: 'Student' };
+ const user = { name: "Gokul", role: 'Admin' };
 
   return (
     <nav className="navbar navbar-expand-lg custom-navbar navbar-dark">
