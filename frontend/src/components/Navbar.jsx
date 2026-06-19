@@ -109,6 +109,16 @@ const Navbar = () => {
                 </li>
 
                 <li className="nav-item">
+                  <Link
+                    to="/profile"
+                    className="nav-link d-flex flex-column align-items-center"
+                  >
+                    <i className="bi bi-person-circle fs-4"></i>
+                    Profile
+                  </Link>
+                </li>
+
+                <li className="nav-item">
                   <button
                     onClick={handleLogout}
                     className="btn nav-link d-flex flex-column align-items-center text-white"
@@ -139,6 +149,16 @@ const Navbar = () => {
                   >
                     <i className="bi bi-card-text fs-4"></i>
                     Active Complaints
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    to="/profile"
+                    className="nav-link d-flex flex-column align-items-center"
+                  >
+                    <i className="bi bi-person-circle fs-4"></i>
+                    Profile
                   </Link>
                 </li>
 

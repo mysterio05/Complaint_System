@@ -13,6 +13,7 @@ import Dashboard from './pages/Dashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminComplaintList from './pages/AdminComplaintList';
 import StatusUpdate from './pages/StatusUpdate';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/admin" element={<AdminComplaintList />} />
         <Route path="/AdminComplaintList" element={<AdminComplaintList />} />
         <Route path="/admin/update/:id" element={<StatusUpdate />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
     </>
   );
