@@ -249,6 +249,33 @@
   font-size: 1rem;
 }
 
+/* Dynamic pulsing glow animations */
+.btn-primary-custom {
+  animation: primaryButtonGlow 3s ease-in-out infinite;
+}
+
+.btn-outline-custom {
+  animation: secondaryButtonGlow 3s ease-in-out infinite;
+}
+
+@keyframes primaryButtonGlow {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35);
+  }
+  50% {
+    box-shadow: 0 4px 28px rgba(79, 70, 229, 0.6);
+  }
+}
+
+@keyframes secondaryButtonGlow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(79, 70, 229, 0.15);
+  }
+}
+
 /* HERO SECTION */
 .hero-section {
   flex-grow: 1;
