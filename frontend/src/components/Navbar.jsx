@@ -40,7 +40,7 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  if (!user) {
+  if (location.pathname === '/' || !user) {
     return null;
   }
 
@@ -83,8 +83,18 @@ const Navbar = () => {
                     to="/dashboard"
                     className="nav-link d-flex flex-column align-items-center"
                   >
-                    <i className="bi bi-house-door fs-4"></i>
+                    <i className="bi bi-house fs-4"></i>
                     Home
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    to="/mycomplaints"
+                    className="nav-link d-flex flex-column align-items-center"
+                  >
+                    <i className="bi bi-card-text fs-4"></i>
+                    My Complaints
                   </Link>
                 </li>
 
@@ -93,8 +103,8 @@ const Navbar = () => {
                     to="/view"
                     className="nav-link d-flex flex-column align-items-center"
                   >
-                    <i className="bi bi-card-text fs-4"></i>
-                    My Complaints
+                    <i className="bi bi-pencil fs-4"></i>
+                    Edit Complaints
                   </Link>
                 </li>
 
