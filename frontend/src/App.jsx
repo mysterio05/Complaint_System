@@ -1,5 +1,5 @@
+import React from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-
 import Navbar from './components/Navbar';
 import Add from './pages/Add';
 import View from './pages/View';
@@ -24,6 +24,9 @@ function App() {
     <>
       {shouldShowNavbar && <Navbar />}
 
+function App() {
+  return (
+    <Layout>
       <Routes>
         <Route path="/" element={<Landing />} />
 
@@ -46,7 +49,7 @@ function App() {
         <Route path="/admin/update/:id" element={<StatusUpdate />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
-    </>
+    </Layout>
   );
 }
 
