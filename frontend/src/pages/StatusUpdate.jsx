@@ -15,7 +15,7 @@ const StatusUpdate = () => {
   useEffect(() => {
     const fetchComplaint = async () => {
       try {
-        const res = await axios.get(`${API_BASE_URL}/complaints/${id}`);
+        const res = await axios.get(`${API_BASE_URL}/admin/complaints/${id}`);
         setComplaint(res.data);
         setStatus(res.data.status);
       } catch (error) {
