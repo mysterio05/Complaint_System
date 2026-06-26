@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
         }
 
         const token = jwt.sign(
-            { id: user._id, role: user.role }, 
+            { id: user._id.toString(), role: user.role }, 
             process.env.JWT_SECRET, 
             { expiresIn: '30d' } 
         );
@@ -72,4 +72,52 @@ const loginUser = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser };
+const getProfile = async (req, res) => {
+    try {
+        const userId = req.user._id.toString();
+        const user = await User.findById(userId).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(500).json({ message: `Server Error: ${error.message}` });
+    }
+};
+
+const updateProfile = async (req, res) => {
+    try {
+        const { name, email, currentPassword, newPassword } = req.body;
+        
+        const userId = req.user._id.toString();
+        const user = await User.findById(userId);
+        
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        user.name = name || user.name;
+        user.email = email || user.email;
+
+        if (currentPassword && newPassword && currentPassword.trim().length > 0 && newPassword.trim().length > 0) {
+            const isMatch = await bcrypt.compare(currentPassword, user.password);
+            if (!isMatch) {
+                return res.status(400).json({ message: 'Incorrect current password' });
+            }
+            
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(newPassword, salt);
+        }
+
+        await user.save();
+
+        res.status(200).json({
+            message: 'Profile updated successfully',
+            user: { id: user._id, name: user.name, email: user.email, role: user.role }
+        });
+    } catch (error) {
+        res.status(500).json({ message: `Server Error: ${error.message}` });
+    }
+};
+
+module.exports = { registerUser, loginUser, getProfile, updateProfile };

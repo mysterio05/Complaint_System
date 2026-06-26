@@ -1,3 +1,4 @@
+import React from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
@@ -15,15 +16,22 @@ import StatusUpdate from './pages/StatusUpdate';
 import Profile from './pages/Profile';
 import Landing from './pages/Landing';
 
-function App() {
+const Layout = ({ children }) => {
   const location = useLocation();
   const hideNavbarPaths = ['/', '/login', '/register'];
-  const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname.toLowerCase());
+  const shouldHideNavbar = hideNavbarPaths.includes(location.pathname.toLowerCase());
 
   return (
     <>
-      {shouldShowNavbar && <Navbar />}
+      {!shouldHideNavbar && <Navbar />}
+      {children}
+    </>
+  );
+};
 
+function App() {
+  return (
+    <Layout>
       <Routes>
         <Route path="/" element={<Landing />} />
 
@@ -46,7 +54,7 @@ function App() {
         <Route path="/admin/update/:id" element={<StatusUpdate />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
-    </>
+    </Layout>
   );
 }
 
