@@ -1,5 +1,4 @@
-import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Add from './pages/Add';
@@ -17,9 +16,13 @@ import Profile from './pages/Profile';
 import Landing from './pages/Landing';
 
 function App() {
+  const location = useLocation();
+  const hideNavbarPaths = ['/', '/login', '/register'];
+  const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname.toLowerCase());
+
   return (
     <>
-      <Navbar />
+      {shouldShowNavbar && <Navbar />}
 
       <Routes>
         <Route path="/" element={<Landing />} />
