@@ -1,77 +1,180 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Profile.css';
 
 const Profile = () => {
-  const [form, setForm] = useState({ name: '', email: '' });
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    });
+    const [message, setMessage] = useState({ type: '', text: '' });
+    const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-    axios.get('http://localhost:5000/api/auth/profile', {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(res => {
-      setForm({ name: res.data.user.name, email: res.data.user.email });
-    }).catch(() => setError('Failed to load profile.'));
-  }, []);
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await axios.get('http://localhost:5000/api/auth/profile', {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                if (res.data && res.data.user) {
+                    setFormData(prev => ({
+                        ...prev,
+                        name: res.data.user.name || '',
+                        email: res.data.user.email || ''
+                    }));
+                }
+            } catch (err) {
+                showFeedback('error', 'Failed to load profile data.');
+            }
+        };
+        fetchProfile();
+    }, []);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+    const showFeedback = (type, text) => {
+        setMessage({ type, text });
+        setTimeout(() => setMessage({ type: '', text: '' }), 4000);
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage('');
-    setError('');
-    try {
-      const token = localStorage.getItem('token');
-      const res = await axios.put('http://localhost:5000/api/auth/profile', form, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      // Update localStorage so Navbar reflects new name
-      const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
-      localStorage.setItem('user', JSON.stringify({ ...storedUser, name: res.data.user.name, email: res.data.user.email }));
-      setMessage('Profile updated successfully!');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Update failed.');
-    }
-  };
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
 
-  return (
-    <div className="container mt-5" style={{ maxWidth: '450px' }}>
-      <h2>Edit Profile</h2>
-      <p className="text-muted">Update your name or email address.</p>
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        if (formData.newPassword || formData.confirmPassword) {
+            if (formData.newPassword !== formData.confirmPassword) {
+                return showFeedback('error', 'New passwords do not match.');
+            }
+            if (!formData.currentPassword) {
+                return showFeedback('error', 'Please provide your current password to save updates.');
+            }
+        }
 
-      {message && <div className="alert alert-success">{message}</div>}
-      {error && <div className="alert alert-danger">{error}</div>}
+        setLoading(true);
+        try {
+            const token = localStorage.getItem('token');
+            const res = await axios.put('http://localhost:5000/api/auth/profile', {
+                name: formData.name,
+                email: formData.email,
+                currentPassword: formData.currentPassword,
+                newPassword: formData.newPassword
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Full Name</label>
-          <input
-            className="form-control"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
+            showFeedback('success', res.data.message || 'Profile updated successfully!');
+            setFormData(prev => ({ ...prev, currentPassword: '', newPassword: '', confirmPassword: '' }));
+        } catch (err) {
+            const rawError = err.response?.data?.message || '';
+            
+            // Intercepting MongoDB duplicate key index restrictions
+            if (rawError.includes('E11000') || rawError.toLowerCase().includes('duplicate key')) {
+                showFeedback('error', 'This email address is already taken or unavailable.');
+            } else {
+                showFeedback('error', rawError || 'An error occurred during update.');
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <div className="profile-container">
+            
+            {message.text && (
+                <div className={`feedback-banner ${message.type === 'success' ? 'feedback-success' : 'feedback-error'}`}>
+                    {message.text}
+                </div>
+            )}
+
+            <div className="profile-card">
+                
+                <div className="profile-header">
+                    <div className="profile-avatar">
+                        {formData.name ? formData.name.charAt(0) : 'U'}
+                    </div>
+                    <h2 className="profile-username">{formData.name || 'User Profile'}</h2>
+                    <p className="profile-useremail">{formData.email || 'Manage account updates'}</p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="profile-form">
+                    
+                    <div className="form-group">
+                        <label>Full Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            placeholder="Enter your name"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Email Address</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder="name@example.com"
+                            required
+                        />
+                    </div>
+
+                    <hr className="section-divider" />
+                    <h4 className="section-title">Security Update</h4>
+
+                    <div className="form-group">
+                        <label>Current Password</label>
+                        <input
+                            type="password"
+                            name="currentPassword"
+                            value={formData.currentPassword}
+                            onChange={handleChange}
+                            placeholder="Type current password to confirm changes"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>New Password</label>
+                        <input
+                            type="password"
+                            name="newPassword"
+                            value={formData.newPassword}
+                            placeholder="Enter new password"
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Confirm New Password</label>
+                        <input
+                            type="password"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            placeholder="Confirm new password"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="profile-submit-btn"
+                    >
+                        {loading ? 'Saving Changes...' : 'Save Changes'}
+                    </button>
+
+                </form>
+            </div>
         </div>
-        <div className="mb-3">
-          <label className="form-label">Email Address</label>
-          <input
-            className="form-control"
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary w-100">Save Changes</button>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default Profile;
