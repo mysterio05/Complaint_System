@@ -3,12 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './MyComplaints.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config';
 
 const MyComplaints = () => {
   const [complaints, setComplaints] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/complaints')
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    axios.get(`${API_BASE_URL}/complaints/user/${userId}`)
       .then(res => setComplaints(res.data))
       .catch(err => console.error(err));
   }, []);
