@@ -9,7 +9,7 @@ const ComplaintDetails = () => {
     const { id } = useParams();
     const [complaint, setComplaint] = useState({});
     useEffect(() => {
-    axios.get(`http://localhost:5000/complaints/${id}`)
+    axios.get(`http://localhost:5000/api/complaints/${id}`)
          .then((res) => {
                 setComplaint(res.data);
             })
@@ -24,7 +24,7 @@ const ComplaintDetails = () => {
         <h1>&nbsp;Complaint Details</h1>
         &nbsp;&nbsp;&nbsp;<Link to="/mycomplaints" className="text-decoration-none"><i className="bi bi-arrow-left"></i>Back to My complaints</Link>
         <br/><br/>
-        <div className="card m-3 shadow-sm">
+        <div className="card m-3 shadow">
           <div className="card-body">
             <div className="d-flex">
              <div className="icon-circle">

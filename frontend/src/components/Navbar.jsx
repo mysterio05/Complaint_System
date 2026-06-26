@@ -39,17 +39,35 @@ const Navbar = () => {
                 </Link>
               </li>
 
-              <li className="nav-item">
-                <Link to="/mycomplaint" className='nav-link d-flex flex-column align-items-center'> 
-                  <i className="bi bi-card-text fs-4"></i>My Complaints
-                </Link>
-              </li>
+                <li className="nav-item">
+                  <Link
+                    to="/mycomplaints"
+                    className="nav-link d-flex flex-column align-items-center"
+                  >
+                    <i className="bi bi-card-text fs-4"></i>
+                    My Complaints
+                  </Link>
+                </li>
 
-              <li className="nav-item"> 
-                <Link to="/Add" className='nav-link d-flex flex-column align-items-center'>
-                  <i className="bi bi-file-earmark-plus fs-4"></i>Raise Complaint
-                </Link>
-              </li>
+                <li className="nav-item">
+                  <Link
+                    to="/view"
+                    className="nav-link d-flex flex-column align-items-center"
+                  >
+                    <i className="bi bi-pencil fs-4"></i>
+                    Edit Complaints
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    to="/add"
+                    className="nav-link d-flex flex-column align-items-center"
+                  >
+                    <i className="bi bi-file-earmark-plus fs-4"></i>
+                    Raise Complaint
+                  </Link>
+                </li>
 
               <li className="nav-item">
                 <Link to="/login" className='nav-link d-flex flex-column align-items-center'>

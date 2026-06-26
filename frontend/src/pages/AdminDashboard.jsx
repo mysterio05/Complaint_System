@@ -23,4 +23,19 @@ const AdminDashboard = () => {
   )
 }
 
+<<<<<<< HEAD
 export default AdminDashboard
+=======
+      {loading ? (
+        <div className="text-center mt-4">
+          <h5>Loading chart...</h5>
+        </div>
+      ) : (
+        <ComplaintChart complaint={data} />
+      )}
+    </>
+  );
+};
+
+export default AdminDashboard;
+>>>>>>> 0575769 (module 3 and dashboard fix)

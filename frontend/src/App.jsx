@@ -32,23 +32,18 @@ function App() {
       <Route path='/admin/update/:id' element={<StatusUpdate/>}/>
       <Route path='/mycomplaints' element={<MyComplaints/>}/>
       <Route path='/complaintdetails/:id' element={<ComplaintDetails/>}/>
-        <Route path='/mycomplaint' element={<View complaints={complaints} setComplaints={setComplaints} />}/>
-       <Route path='/' element={<Login/>}/>
+      <Route path='/mycomplaint' element={<View/>}/>
+      <Route path='/' element={<Login/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/dashboard' element={<Dashboard/>}/>
-       <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
-      
-          <Route path='/add' element={<Add complaints={complaints} setComplaints={setComplaints} />} />
-        <Route path='/view' element={<View complaints={complaints} setComplaints={setComplaints} />} />
-        <Route path='/update/:id' element={<Update complaints={complaints} setComplaints={setComplaints} />} />
-      <Route path='/' element={<Navigate to="/login"/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
-        <Route path='/AdminComplaintList' element={<AdminComplaintList/>}/>
-
-    </Routes>
-      
-    
+      <Route path='/AdminDashboard' element={<AdminDashboard/>}/>
+      <Route path='/add' element={<Add/>} />
+      <Route path='/view' element={<View/>} />
+      <Route path='/update/:id' element={<Update/>} />
+      <Route path='/register' element={<Register/>}/>
+      <Route path='/AdminComplaintList' element={<AdminComplaintList/>}/>
+      <Route path='/profile' element={<Profile/>}/>
+      </Routes>
     </>
   )
 }
