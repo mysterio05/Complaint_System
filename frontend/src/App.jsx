@@ -1,6 +1,5 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Add from './pages/Add';
 import View from './pages/View';
@@ -15,11 +14,22 @@ import AdminComplaintList from './pages/AdminComplaintList';
 import StatusUpdate from './pages/StatusUpdate';
 import Profile from './pages/Profile';
 
-function App() {
+const Layout = ({ children }) => {
+  const location = useLocation();
+  const hideNavbarPaths = ['/login', '/register'];
+  const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
+
   return (
     <>
-      <Navbar />
+      {!shouldHideNavbar && <Navbar />}
+      {children}
+    </>
+  );
+};
 
+function App() {
+  return (
+    <Layout>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
 
@@ -42,7 +52,7 @@ function App() {
         <Route path="/admin/update/:id" element={<StatusUpdate />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
-    </>
+    </Layout>
   );
 }
 
