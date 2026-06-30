@@ -23,7 +23,7 @@ const MyComplaints = () => {
         <h1>&nbsp;My Complaints</h1>
         <p className='ms-3'>View all the complaints you have submitted</p><br/>
         <div className="p-3">
-        <table className="table table-bordered complaints-table shadow-sm">
+        <table className="table table-bordered complaints-table shadow">
           <thead>
             <tr>
               <th>ID</th>
@@ -38,13 +38,13 @@ const MyComplaints = () => {
           <tbody>
             {complaints.map((item) => (
               <tr key={item._id}>
-                <td>{item._id}</td>
+                <td>{item._id.slice(-6)}</td>
                 <td>{item.title}</td>
                 <td>{item.category}</td>
                 <td>{item.location}</td>
                 <td>{new Date(item.createdDate).toLocaleDateString()}</td>
                 <td>{item.status}</td>
-                <Link to={`/complaintdetails/${item._id}`} className="text-decoration-none">View Details</Link>
+                <td><Link to={`/complaintdetails/${item._id}`} className="text-decoration-none">View Details</Link></td>
               </tr>
             ))}
           </tbody>

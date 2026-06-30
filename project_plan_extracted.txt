@@ -1,0 +1,327 @@
+--- Page 1 ---
+PROJECT  INITIATION  DOCUMENT  (PID)  
+Campus  Complaint  Management  System  (CCMS)  
+Version:  1.0  
+Duration:  3  Weeks  
+Technology  Stack:  
+●  ReactJS  ●  Node.js  ●  Express.js  ●  MongoDB  ●  Git  &  GitHub  
+ 
+1.  PROJECT  OVERVIEW  
+Background  
+In  colleges,  students  often  face  issues  related  to  classrooms,  laboratories,  
+hostels,
+ 
+libraries,
+ 
+internet
+ 
+connectivity,
+ 
+electrical
+ 
+facilities,
+ 
+and
+ 
+other
+ 
+campus
+ 
+infrastructure.
+ 
+Complaints
+ 
+are
+ 
+usually
+ 
+communicated
+ 
+through
+ 
+informal
+ 
+channels,
+ 
+making
+ 
+it
+ 
+difficult
+ 
+to
+ 
+track
+ 
+their
+ 
+status
+ 
+and
+ 
+resolution.
+ 
+The  Campus  Complaint  Management  System  (CCMS)  provides  a  centralized  
+platform
+ 
+where
+ 
+students
+ 
+can
+ 
+raise
+ 
+complaints,
+ 
+track
+ 
+their
+ 
+status,
+ 
+and
+ 
+receive
+ 
+updates
+ 
+while
+ 
+administrators
+ 
+can
+ 
+manage
+ 
+and
+ 
+resolve
+ 
+complaints
+ 
+efficiently.
+ 
+ 
+
+--- Page 2 ---
+2.  PROJECT  OBJECTIVES  
+The  objectives  of  the  project  are:  
+●  Develop  a  web  application  using  the  MERN  Stack.  ●  Provide  an  online  complaint  registration  system.  ●  Enable  students  to  track  complaint  status.  ●  Allow  administrators  to  manage  complaints.  ●  Practice  frontend,  backend,  database,  and  integration  concepts.  ●  Simulate  Agile-based  project  development.  
+ 
+3.  PROJECT  SCOPE  
+In  Scope  
+Student  Features  
+●  Register/Login  ●  Submit  Complaint  ●  View  Submitted  Complaints  ●  Track  Complaint  Status  
+Administrator  Features  
+●  View  Complaints  ●  Update  Complaint  Status  ●  Resolve  Complaints  ●  View  Complaint  Statistics  
+Dashboard  Features  
+●  Total  Complaints  
+
+--- Page 3 ---
+●  Pending  Complaints  ●  Resolved  Complaints  ●  Category-wise  Complaints  
+ 
+Out  of  Scope  
+The  following  features  are  not  required:  
+●  SMS  Alerts  ●  Mobile  Application  ●  Multi-level  Approval  Workflow  ●  File  Uploads  ●  Chat  Support  
+4.  USER  ROLES  
+Student  
+Responsibilities:  
+●  Submit  complaints  ●  View  complaint  history  ●  Track  complaint  progress  
+Administrator  
+Responsibilities:  
+●  View  complaints  ●  Update  complaint  status  ●  Mark  complaints  as  resolved  
+
+--- Page 4 ---
+ 
+5.  FUNCTIONAL  REQUIREMENTS  
+Module  1:  Authentication  
+Features  
+●  User  Registration  ●  User  Login  ●  Logout  
+Fields  
+Users:  
+●  Name  ●  Email  ●  Password  ●  Role  
+Role  Values:  
+●  Student  ●  Admin  
+ 
+Module  2:  Complaint  Management  
+Features  
+●  Add  Complaint  ●  Edit  Complaint  (Before  Review)  ●  Delete  Complaint  
+
+--- Page 5 ---
+●  View  Complaint  List  
+Complaint  Fields  
+Field  Description  
+Complaint  ID  
+Auto  Generated  
+Complaint  Title  
+Short  Title  
+Category  Complaint  Type  
+Description  Detailed  Complaint  
+Location  Area  of  Issue  
+Date  Submitted  
+Auto  Generated  
+Status  Pending/In  Progress/Resolved   
+Complaint  Categories  
+Students  can  select:  
+●  Classroom  ●  Laboratory  ●  Hostel  ●  Library  ●  Internet/Wi-Fi  ●  Electrical  ●  Water  Supply  
+
+--- Page 6 ---
+●  Cleanliness  ●  Other  
+ 
+Module  3:  Complaint  Tracking  
+Features  
+●  View  My  Complaints  ●  Track  Current  Status  ●  View  Resolution  Details  
+Status  Values  
+●  Pending  ●  In  Progress  ●  Resolved  
+ 
+Module  4:  Admin  Complaint  Handling  
+Features  
+●  View  All  Complaints  ●  Filter  Complaints  ●  Update  Status  ●  Mark  Resolved  
+Filters  
+●  Category  ●  Status  ●  Date  
+
+--- Page 7 ---
+ 
+Module  5:  Dashboard  
+Student  Dashboard  
+Display:  
+●  Total  Complaints  Raised  ●  Pending  Complaints  ●  Resolved  Complaints  
+Admin  Dashboard  
+Display:  
+●  Total  Complaints  ●  Pending  Complaints  ●  In  Progress  Complaints  ●  Resolved  Complaints  
+ 
+6.  NON-FUNCTIONAL  REQUIREMENTS  
+Performance  
+●  Application  should  load  within  3  seconds.  
+Security  
+●  Password  encryption  using  bcrypt.  ●  Protected  routes.  
+Usability  
+
+--- Page 8 ---
+●  Responsive  UI.  ●  Easy  navigation.  
+Reliability  
+●  Data  should  persist  in  MongoDB.  
+ 
+7.  DATABASE  DESIGN  
+Collection:  Users  
+Fields:  
+●  _id  ●  name  ●  email  ●  password  ●  role  
+ 
+Collection:  Complaints  
+Fields:  
+●  _id  ●  title  ●  category  ●  description  ●  location  ●  status  ●  createdBy  
+
+--- Page 9 ---
+●  createdDate  
+ 
+8.  TEAM  STRUCTURE  
+Team  Lead  
+Responsibilities:  
+●  Sprint  Planning  ●  Task  Allocation  ●  GitHub  Management  ●  Code  Integration  ●  Deployment  Support  
+Feature  Ownership:  
+●  Dashboard  Module  ●  Project  Integration  
+ 
+Member  1  –  Authentication  Module  
+Responsibilities:  
+Frontend:  
+●  Registration  Page  ●  Login  Page  
+Backend:  
+●  Register  API  
+
+--- Page 10 ---
+●  Login  API  
+Database:  
+●  User  Collection  
+Deliverable:  
+●  Complete  Authentication  Module  
+ 
+Member  2  –  Complaint  Submission  Module  
+Responsibilities:  
+Frontend:  
+●  Complaint  Form  ●  Complaint  Listing  
+Backend:  
+●  Create  Complaint  API  ●  View  Complaint  API  
+Database:  
+●  Complaint  Collection  
+Deliverable:  
+●  Complaint  Submission  Module  
+ 
+Member  3  –  Complaint  Tracking  Module  
+
+--- Page 11 ---
+Responsibilities:  
+Frontend:  
+●  My  Complaints  Page  ●  Complaint  Details  Page  
+Backend:  
+●  Track  Complaint  API  ●  Complaint  Status  API  
+Deliverable:  
+●  Complaint  Tracking  Module  
+ 
+Member  4  –  Admin  Management  Module  
+Responsibilities:  
+Frontend:  
+●  Admin  Complaint  List  ●  Status  Update  Screen  
+Backend:  
+●  Update  Status  API  ●  Filter  API  
+Deliverable:  
+●  Complaint  Management  Module  
+ 
+
+--- Page 12 ---
+Team  Lead  /  Member  5  –  Dashboard  Module  
+Responsibilities:  
+Frontend:  
+●  Dashboard  Cards  ●  Statistics  Page  
+Backend:  
+●  Dashboard  APIs  
+Deliverable:  
+●  Dashboard  Module  
+ 
+9.  SPRINT  PLAN  
+Sprint  1  –  Frontend  Development  (Week  1)  
+Deliverables:  
+●  React  Project  Setup  ●  Routing  ●  UI  Screens  ●  Forms  ●  Navigation  
+Expected  Output:  
+Working  frontend  with  dummy  data.  
+ 
+
+--- Page 13 ---
+Sprint  2  –  Backend  Development  (Week  2)  
+Deliverables:  
+●  MongoDB  Setup  ●  Express  APIs  ●  CRUD  Operations  ●  Postman  Testing  
+Expected  Output:  
+Working  backend  APIs.  
+ 
+Sprint  3  –  Integration  &  Testing  (Week  3)  
+Deliverables:  
+●  Axios  Integration  ●  End-to-End  Testing  ●  Bug  Fixing  ●  Final  Demonstration  
+Expected  Output:  
+Fully  Functional  MERN  Application.  
+ 
+10.  GITHUB  WORKFLOW  
+Branch  Structure:  
+main  
+
+--- Page 14 ---
+development  
+feature/authentication  
+feature/complaints  
+feature/tracking  
+feature/admin  
+feature/dashboard  
+ 
+11.  ACCEPTANCE  CRITERIA  
+The  project  will  be  accepted  when:  
+●  Authentication  is  functional.  ●  Complaint  submission  works.  ●  Complaint  status  updates  work.  ●  Dashboard  displays  correct  statistics.  ●  Frontend  and  backend  are  integrated.  ●  MongoDB  stores  and  retrieves  data  successfully.  
+ 
+12.  FINAL  DELIVERABLES  
+Each  Team  Must  Submit:  
+1.  GitHub  Repository  2.  Project  Report  
+ 
+
+--- Page 15 ---
+SUCCESS  CRITERIA  
+Students  should  demonstrate:  
+●  React  Components  and  Routing  ●  Express  API  Development  ●  MongoDB  CRUD  Operations  ●  Axios  Integration  ●  Team  Collaboration  ●  GitHub  Usage  ●  Basic  Agile  Development  Process  
+
