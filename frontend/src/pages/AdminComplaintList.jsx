@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import API_BASE_URL from '../config'
 
 const statusBadge = {
   'Pending': 'warning',
@@ -16,36 +15,35 @@ const AdminComplaintList = () => {
   const [dateFilter, setDateFilter] = useState('')
 
   useEffect(() => {
-    const fetchComplaints = async () => {
-      try {
-        let url = `${API_BASE_URL}/admin/complaints?`;
-        if (categoryFilter) url += `category=${categoryFilter}&`;
-        if (statusFilter) url += `status=${statusFilter}&`;
-        if (dateFilter) url += `date=${dateFilter}&`;
+    fetchComplaints()
+  }, [])
 
-        const res = await axios.get(url);
-        setComplaints(res.data);
-      } catch (error) {
-        console.error("Error fetching complaints:", error);
-      }
-    };
-    fetchComplaints();
-  }, [categoryFilter, statusFilter, dateFilter]);
+  const fetchComplaints = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/admin/complaints')
+      setComplaints(res.data)
+    } catch (error) {
+      console.error('Error fetching complaints:', error)
+    }
+  }
+
+  const filtered = complaints.filter(c => {
+    return (
+      (categoryFilter === '' || c.category === categoryFilter) &&
+      (statusFilter === '' || c.status === statusFilter) &&
+      (dateFilter === '' || c.createdDate?.slice(0, 10) === dateFilter)
+    )
+  })
 
   return (
     <div className='container mt-5'>
-
-      {/* Page Header */}
       <div className='mb-4'>
         <h2 className='fw-bold'>Complaint Management</h2>
         <p className='text-muted'>Manage and resolve campus complaints</p>
       </div>
 
-      {/* Main Card */}
       <div className='card shadow-sm'>
         <div className='card-body'>
-
-          {/* Filter Row */}
           <div className='row mb-4 g-2'>
             <div className='col-md-3'>
               <select className='form-select' value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)}>
@@ -79,7 +77,6 @@ const AdminComplaintList = () => {
             </div>
           </div>
 
-          {/* Table */}
           <div className='table-responsive'>
             <table className='table table-hover align-middle'>
               <thead style={{ backgroundColor: '#1a1a2e', color: 'white' }}>
@@ -94,15 +91,15 @@ const AdminComplaintList = () => {
                 </tr>
               </thead>
               <tbody>
-                {complaints.map(c => (
+                {filtered.map(c => (
                   <tr key={c._id}>
-                    <td className='px-3 text-muted'>#{c._id.slice(-6)}</td>
+                    <td className='px-3 text-muted'>#{c._id.slice(-4)}</td>
                     <td className='fw-medium'>{c.title}</td>
                     <td>{c.category}</td>
                     <td>{c.location}</td>
-                    <td>{c.createdDate ? new Date(c.createdDate).toLocaleDateString() : ''}</td>
+                    <td>{c.createdDate ? new Date(c.createdDate).toLocaleDateString() : 'N/A'}</td>
                     <td>
-                      <span className={`badge bg-${statusBadge[c.status] || 'warning'}`}>
+                      <span className={`badge bg-${statusBadge[c.status]}`}>
                         {c.status}
                       </span>
                     </td>
@@ -111,13 +108,12 @@ const AdminComplaintList = () => {
                     </td>
                   </tr>
                 ))}
-                {complaints.length === 0 && (
+                {filtered.length === 0 && (
                   <tr><td colSpan={7} className='text-center text-muted py-4'>No complaints found.</td></tr>
                 )}
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
     </div>
