@@ -21,7 +21,7 @@ const DashboardCard = () => {
 
         // Get logged in user
         const profileRes = await axios.get(
-          "http://localhost:5000/api/auth/profile",
+          "https://ccmsbackend.vercel.app/api/auth/profile",
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -37,13 +37,13 @@ const DashboardCard = () => {
         // Student → only own complaints
         if (currentUser.role === "Student") {
           complaintsRes = await axios.get(
-            `http://localhost:5000/api/complaints/user/${currentUser._id}`
+            `https://ccmsbackend.vercel.app/api/complaints/user/${currentUser._id}`
           );
         }
         // Admin → all complaints
         else {
           complaintsRes = await axios.get(
-            "http://localhost:5000/api/complaints"
+            "https://ccmsbackend.vercel.app/api/complaints"
           );
         }
 

@@ -11,7 +11,7 @@ const ComplaintDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/complaints/${id}`)
+      .get(`https://ccmsbackend.vercel.app/api/complaints/${id}`)
       .then((res) => {
         setComplaint(res.data);
         setLoading(false);
@@ -52,7 +52,7 @@ const ComplaintDetails = () => {
       <br />
       <br />
 
-      <div className="card m-3 shadow-sm">
+      <div className="card m-3 shadow">
         <div className="card-body">
 
           <div className="d-flex">
@@ -108,10 +108,6 @@ const ComplaintDetails = () => {
           <strong className="fw-semibold">Description</strong>
 
           <p>{complaint.description}</p>
-
-          <strong className="fw-semibold">Resolution Details</strong>
-
-          <p>{complaint.resolutionDetails || "Not resolved yet."}</p>
 
         </div>
       </div>
