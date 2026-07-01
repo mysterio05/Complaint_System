@@ -30,41 +30,33 @@ const Update = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
+  const handleSave = async () => {
     try {
       await axios.put(`${API_BASE_URL}/complaints/${id}`, form);
       navigate('/view');
     } catch (error) {
-      alert("Failed to update complaint: " + (error.response?.data?.error || error.message));
+      console.error("Error updating complaint:", error);
     }
   };
 
   return (
     <div className="container mt-5" style={{ maxWidth: '400px' }}>
-      <h2>Update Complaint</h2>
-      <form onSubmit={handleUpdate}>
-        <input className="form-control mb-2" name="title" value={form.title} onChange={handleChange} required />
-        <select className="form-control mb-2" name="category" value={form.category} onChange={handleChange}>
-          <option value="Classroom">Classroom</option>
-          <option value="Laboratory">Laboratory</option>
-          <option value="Hostel">Hostel</option>
-          <option value="Library">Library</option>
-          <option value="Internet/Wi-Fi">Internet/Wi-Fi</option>
-          <option value="Electrical">Electrical</option>
-          <option value="Water Supply">Water Supply</option>
-          <option value="Cleanliness">Cleanliness</option>
-          <option value="Other">Other</option>
-        </select>
-        <input className="form-control mb-2" name="location" value={form.location} onChange={handleChange} required />
-        <textarea className="form-control mb-2" name="description" value={form.description} onChange={handleChange} rows="3" required />
-        <select className="form-control mb-2" name="status" value={form.status} onChange={handleChange} disabled>
-          <option value="Pending">Pending</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Resolved">Resolved</option>
-        </select>
-        <button type="submit" className="btn btn-warning">Update Complaint</button>
-      </form>
+      <h2>Edit Complaint</h2>
+      <input className="form-control mb-2" name="title" value={form.title} onChange={handleChange} placeholder="Title" />
+      <select className="form-control mb-2" name="category" value={form.category} onChange={handleChange}>
+        <option value="Classroom">Classroom</option>
+        <option value="Laboratory">Laboratory</option>
+        <option value="Hostel">Hostel</option>
+        <option value="Library">Library</option>
+        <option value="Internet/Wi-Fi">Internet/Wi-Fi</option>
+        <option value="Electrical">Electrical</option>
+        <option value="Water Supply">Water Supply</option>
+        <option value="Cleanliness">Cleanliness</option>
+        <option value="Other">Other</option>
+      </select>
+      <input className="form-control mb-2" name="location" value={form.location} onChange={handleChange} placeholder="Location" />
+      <textarea className="form-control mb-2" name="description" value={form.description} onChange={handleChange} rows="3" placeholder="Detailed Description" />
+      <button className="btn btn-success" onClick={handleSave}>Save Changes</button>
     </div>
   );
 };
