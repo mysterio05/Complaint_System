@@ -17,7 +17,7 @@ const Profile = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get('http://localhost:5000/api/auth/profile', {
+                const res = await axios.get('https://ccmsbackend.vercel.app/api/auth/profile', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 if (res.data && res.data.user) {
@@ -58,7 +58,7 @@ const Profile = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const res = await axios.put('http://localhost:5000/api/auth/profile', {
+            const res = await axios.put('https://ccmsbackend.vercel.app/api/auth/profile', {
                 name: formData.name,
                 email: formData.email,
                 currentPassword: formData.currentPassword,

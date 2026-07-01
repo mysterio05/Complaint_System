@@ -11,7 +11,7 @@ const ComplaintDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/complaints/${id}`)
+      .get(`https://ccmsbackend.vercel.app/api/complaints/${id}`)
       .then((res) => {
         setComplaint(res.data);
         setLoading(false);

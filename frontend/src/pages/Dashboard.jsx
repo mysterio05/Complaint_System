@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/complaints')
+    axios.get('https://ccmsbackend.vercel.app/api/complaints')
       .then((res) => {
         const complaints = res.data;
 

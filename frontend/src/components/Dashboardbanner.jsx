@@ -12,7 +12,7 @@ const Dashboardbanner = () => {
 
     if (!token) return;
 
-    axios.get("http://localhost:5000/api/auth/profile", {
+    axios.get("https://ccmsbackend.vercel.app/api/auth/profile", {
       headers: {
         Authorization: `Bearer ${token}`
       }
